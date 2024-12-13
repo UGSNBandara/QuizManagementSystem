@@ -289,5 +289,10 @@ namespace QuizManagementSystem
             quizDisplay.Visible = true;
             LoadQuizzesToPanel();
         }
+
+        private void navPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

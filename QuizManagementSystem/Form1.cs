@@ -87,7 +87,7 @@ namespace QuizManagementSystem
                 userDetail.UserName = playerUsernameInput.Text;
                 userDetail.Password = playerPasswordInput.Text;
 
-                PlayerForm pf = new PlayerForm(userDetail);
+                PlayerForm3 pf = new PlayerForm3();
                 pf.Show();
                 this.Hide();
             }
@@ -151,6 +151,10 @@ namespace QuizManagementSystem
             }
         }
 
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
 

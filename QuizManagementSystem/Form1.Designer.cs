@@ -643,6 +643,7 @@ namespace QuizManagementSystem
             panel1.Name = "panel1";
             panel1.Size = new Size(900, 1000);
             panel1.TabIndex = 10;
+            panel1.Paint += panel1_Paint;
             // 
             // label17
             // 

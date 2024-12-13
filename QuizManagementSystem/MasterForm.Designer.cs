@@ -106,6 +106,7 @@
             navPanel.Name = "navPanel";
             navPanel.Size = new Size(250, 1000);
             navPanel.TabIndex = 0;
+            navPanel.Paint += navPanel_Paint;
             // 
             // leadboardPanel
             // 
