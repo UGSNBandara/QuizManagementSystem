@@ -179,5 +179,38 @@ namespace QuizManagementSystem
         {
             LoadQuizzesToPanel();
         }
+
+        private void AnswerA_CheckedChanged(object sender, EventArgs e)
+        {
+            AnswerA.Checked = true;
+            AnswerB.Checked = false;
+            AnswerC.Checked = false;
+            AnswerD.Checked = false;
+        }
+
+        private void AnswerB_CheckedChanged(object sender, EventArgs e)
+        {
+            AnswerA.Checked = false;
+            AnswerB.Checked = true;
+            AnswerD.Checked = false;
+            AnswerC.Checked = false;
+
+        }
+
+        private void AnswerC_CheckedChanged(object sender, EventArgs e)
+        {
+            AnswerA.Checked = false;
+            AnswerB.Checked = false;
+            AnswerC.Checked = true;
+            AnswerD.Checked = false;
+        }
+
+        private void AnswerD_CheckedChanged(object sender, EventArgs e)
+        {
+            AnswerA.Checked = false;
+            AnswerB.Checked = false;
+            AnswerC.Checked = false;
+            AnswerD.Checked = true;
+        }
     }
 }

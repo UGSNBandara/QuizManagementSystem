@@ -294,5 +294,10 @@ namespace QuizManagementSystem
         {
 
         }
+
+        private void panelQuestions_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

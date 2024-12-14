@@ -112,7 +112,7 @@
             // 
             leadboardPanel.AutoScroll = true;
             leadboardPanel.BackColor = Color.Violet;
-            leadboardPanel.Location = new Point(73, 339);
+            leadboardPanel.Location = new Point(81, 361);
             leadboardPanel.Name = "leadboardPanel";
             leadboardPanel.Size = new Size(94, 91);
             leadboardPanel.TabIndex = 4;
@@ -525,6 +525,7 @@
             panelQuestions.Name = "panelQuestions";
             panelQuestions.Size = new Size(849, 864);
             panelQuestions.TabIndex = 0;
+            panelQuestions.Paint += panelQuestions_Paint;
             // 
             // backtoQuizPanel
             // 

@@ -127,6 +127,7 @@
             AnswerD.TabIndex = 13;
             AnswerD.Text = "AnswerD";
             AnswerD.UseVisualStyleBackColor = true;
+            AnswerD.CheckedChanged += AnswerD_CheckedChanged;
             // 
             // AnswerC
             // 
@@ -138,6 +139,7 @@
             AnswerC.TabIndex = 12;
             AnswerC.Text = "AnswerC";
             AnswerC.UseVisualStyleBackColor = true;
+            AnswerC.CheckedChanged += AnswerC_CheckedChanged;
             // 
             // AnswerB
             // 
@@ -149,6 +151,7 @@
             AnswerB.TabIndex = 11;
             AnswerB.Text = "AnswerB";
             AnswerB.UseVisualStyleBackColor = true;
+            AnswerB.CheckedChanged += AnswerB_CheckedChanged;
             // 
             // AnswerA
             // 
@@ -160,6 +163,7 @@
             AnswerA.TabIndex = 10;
             AnswerA.Text = "AnswerA";
             AnswerA.UseVisualStyleBackColor = true;
+            AnswerA.CheckedChanged += AnswerA_CheckedChanged;
             // 
             // QuestionNumber
             // 
