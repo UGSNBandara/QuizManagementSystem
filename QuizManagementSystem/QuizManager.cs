@@ -11,8 +11,8 @@ namespace QuizManagementSystem
         // Initialize with some sample data
         public QuizManager()
         {
-            AddQuiz(1, "Math Quiz", 100, "Dulitha");
-            AddQuiz(2, "Science Quiz", 80, "Sulitha");
+            AddQuiz("Math Quiz", 100, "Dulitha");
+            AddQuiz("Science Quiz", 80, "Sulitha");
 
             AddQuestion(1, "What is 2+2?", "3", "4", "5", "6", 'B');
             AddQuestion(1, "What is 10/2?", "2", "5", "10", "20", 'B');
@@ -24,8 +24,10 @@ namespace QuizManagementSystem
             return quizzes.ToDictionary();
         }
 
-        public void AddQuiz(int quizID, string quizName, int marks, string userName)
+        public void AddQuiz(string quizName, int marks, string userName)
         {
+            int quizID = quizzes.FindMaxID() + 1;
+
             Quiz newQuiz = new Quiz
             {
                 QuizID = quizID,
@@ -105,6 +107,12 @@ namespace QuizManagementSystem
             root = Insert(root, key, value);
         }
 
+        public TKey FindMaxID()
+        {
+            Node max = FindMax(root);
+            return max == null ? (TKey)(object)0 : max.Key;
+        }
+
         private Node Insert(Node node, TKey key, TValue value)
         {
             if (node == null) return new Node(key, value);
@@ -163,6 +171,12 @@ namespace QuizManagementSystem
         private Node FindMin(Node node)
         {
             while (node.Left != null) node = node.Left;
+            return node;
+        }
+
+        private Node FindMax(Node node)
+        {
+            while (node.Right != null) node = node.Right;
             return node;
         }
 

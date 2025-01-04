@@ -19,8 +19,6 @@ namespace QuizManagementSystem
         public sf()
         {
             InitializeComponent();
-            ml.LoadUsersFromDatabase();
-            pl.LoadPlayersFormDatabase();
         }
 
         private void Form1_Load(object sender, EventArgs e)
