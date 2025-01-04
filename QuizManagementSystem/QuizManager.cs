@@ -1,180 +1,215 @@
-﻿using System.Text;
+﻿using System;
 using System.Collections.Generic;
-using System.Security.Cryptography;
-using Microsoft.Data.SqlClient;
 
 namespace QuizManagementSystem
 {
     public class QuizManager
     {
-        private string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\sulit\\Documents\\loginData.mdf;Integrated Security=True;Connect Timeout=30;Encrypt=True";
+        private BinarySearchTree<int, Quiz> quizzes = new BinarySearchTree<int, Quiz>();
+        private Dictionary<int, List<Question>> questionsByQuizID = new Dictionary<int, List<Question>>();
+
+        // Initialize with some sample data
+        public QuizManager()
+        {
+            AddQuiz(1, "Math Quiz", 100, "Dulitha");
+            AddQuiz(2, "Science Quiz", 80, "Sulitha");
+
+            AddQuestion(1, "What is 2+2?", "3", "4", "5", "6", 'B');
+            AddQuestion(1, "What is 10/2?", "2", "5", "10", "20", 'B');
+            AddQuestion(2, "What is H2O?", "Water", "Hydrogen", "Oxygen", "Carbon Dioxide", 'A');
+        }
 
         public Dictionary<int, Quiz> GetQuiz()
         {
-            //here i just declared a disctionary to store the quiz index as the key and valur as the quiz class object
-            Dictionary<int, Quiz> quizzes = new Dictionary<int, Quiz>();
-
-            using (SqlConnection con = new SqlConnection(connectionString))
-            {
-                string query = "SELECT QuizID, QuizName, Marks, UserName FROM Quizzes";
-                SqlCommand cmd = new SqlCommand(query, con);
-                con.Open();
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    quizzes.Add(
-                        reader.GetInt32(0), // here it store the quiz index as the key
-                        new Quiz
-                        {
-                            QuizID = reader.GetInt32(0),
-                            QuizName = reader.GetString(1),
-                            Marks = reader.GetInt32(2),
-                            Username = reader.GetString(3)
-                        }
-                    );
-                }
-            }
-
-            return quizzes;
+            return quizzes.ToDictionary();
         }
 
-
-        //this method to add the quizes to the database
-        public void AddQuiz(string quizName, int marks, string userName)
+        public void AddQuiz(int quizID, string quizName, int marks, string userName)
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            Quiz newQuiz = new Quiz
             {
-                string query = "INSERT INTO Quizzes (QuizName, Marks, UserName) VALUES (@QuizName, @Marks, @UserName)";
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@QuizName", quizName);
-                cmd.Parameters.AddWithValue("@Marks", marks);
-                cmd.Parameters.AddWithValue("@UserName", userName);
-                conn.Open();
-                cmd.ExecuteNonQuery();
-            }
+                QuizID = quizID,
+                QuizName = quizName,
+                Marks = marks,
+                Username = userName
+            };
+            quizzes.Insert(quizID, newQuiz);
         }
 
-        //this method to delete the quiz from the database
         public void DeleteQuiz(int quizID)
         {
-            DeleteWholeQuiz(quizID);
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            quizzes.Remove(quizID);
+            if (questionsByQuizID.ContainsKey(quizID))
             {
-                string query = "DELETE FROM Quizzes WHERE QuizID = @QuizID";
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@QuizID", quizID);
-                conn.Open();
-                cmd.ExecuteNonQuery();
+                questionsByQuizID.Remove(quizID);
             }
         }
-
-        //from here methods are for the questions
 
         public Dictionary<int, List<Question>> LoadQuestionsGroupedByQuizID()
         {
-            Dictionary<int, List<Question>> questionsByQuizID = new Dictionary<int, List<Question>>();
-
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                string query = "SELECT QuizID, QuestionID, QuestionText, AnswerA, AnswerB, AnswerC, AnswerD, CorrectAnswer FROM Questions";
-                SqlCommand cmd = new SqlCommand(query, conn);
-
-                conn.Open();
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    int quizID = reader.GetInt32(0); 
-
-                    Question question = new Question
-                    {
-                        QuestionID = reader.GetInt32(1),
-                        QuestionText = reader.GetString(2),
-                        AnswerA = reader.GetString(3),
-                        AnswerB = reader.GetString(4),
-                        AnswerC = reader.GetString(5),
-                        AnswerD = reader.GetString(6),
-                        CorrectAnswer = reader.GetString(7)[0], // Assumes CorrectAnswer is a CHAR(1)
-                    };
-
-                    if (!questionsByQuizID.ContainsKey(quizID))
-                    {
-                        questionsByQuizID[quizID] = new List<Question>();
-                    }
-                    questionsByQuizID[quizID].Add(question);
-                }
-            }
-
             return questionsByQuizID;
         }
 
         public void AddQuestion(int quizID, string questionText, string answerA, string answerB, string answerC, string answerD, char correctAnswer)
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            if (!questionsByQuizID.ContainsKey(quizID))
             {
-                string query = "INSERT INTO Questions (QuizID, QuestionText, AnswerA, AnswerB, AnswerC, AnswerD, CorrectAnswer) " +
-                               "VALUES (@QuizID, @QuestionText, @AnswerA, @AnswerB, @AnswerC, @AnswerD, @CorrectAnswer)";
-                SqlCommand cmd = new SqlCommand(query, conn);
-
-                cmd.Parameters.AddWithValue("@QuizID", quizID);
-                cmd.Parameters.AddWithValue("@QuestionText", questionText);
-                cmd.Parameters.AddWithValue("@AnswerA", answerA);
-                cmd.Parameters.AddWithValue("@AnswerB", answerB);
-                cmd.Parameters.AddWithValue("@AnswerC", answerC);
-                cmd.Parameters.AddWithValue("@AnswerD", answerD);
-                cmd.Parameters.AddWithValue("@CorrectAnswer", correctAnswer);
-
-                conn.Open();
-                cmd.ExecuteNonQuery();
+                questionsByQuizID[quizID] = new List<Question>();
             }
+
+            Question newQuestion = new Question
+            {
+                QuestionID = questionsByQuizID[quizID].Count + 1,
+                QuizID = quizID,
+                QuestionText = questionText,
+                AnswerA = answerA,
+                AnswerB = answerB,
+                AnswerC = answerC,
+                AnswerD = answerD,
+                CorrectAnswer = correctAnswer
+            };
+
+            questionsByQuizID[quizID].Add(newQuestion);
         }
 
         public void DeleteQuestion(int questionID)
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            foreach (var quiz in questionsByQuizID.Values)
             {
-                string query = "DELETE FROM Questions WHERE QuestionID = @QuestionID";
-                SqlCommand cmd = new SqlCommand(query, conn);
-
-                cmd.Parameters.AddWithValue("@QuestionID", questionID);
-
-                conn.Open();
-                cmd.ExecuteNonQuery();
+                quiz.RemoveAll(q => q.QuestionID == questionID);
             }
         }
-
-        public void DeleteWholeQuiz(int quizID)
-        {
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                string query = "DELETE FROM Questions WHERE QuizID = @QuizID";
-                SqlCommand cmd = new SqlCommand(query, conn);
-
-                cmd.Parameters.AddWithValue("@QuizID", quizID);
-
-                conn.Open();
-                cmd.ExecuteNonQuery();
-            }
-        }
-
-
     }
 
+    // Binary Search Tree Implementation
+    public class BinarySearchTree<TKey, TValue> where TKey : IComparable<TKey>
+    {
+        private class Node
+        {
+            public TKey Key { get; set; }
+            public TValue Value { get; set; }
+            public Node Left { get; set; }
+            public Node Right { get; set; }
 
-    //here this is the class for the quiz, which we use as the object to store the quiz details. 
+            public Node(TKey key, TValue value)
+            {
+                Key = key;
+                Value = value;
+            }
+        }
+
+        private Node root;
+
+        public void Insert(TKey key, TValue value)
+        {
+            root = Insert(root, key, value);
+        }
+
+        private Node Insert(Node node, TKey key, TValue value)
+        {
+            if (node == null) return new Node(key, value);
+
+            int comparison = key.CompareTo(node.Key);
+            if (comparison < 0)
+            {
+                node.Left = Insert(node.Left, key, value);
+            }
+            else if (comparison > 0)
+            {
+                node.Right = Insert(node.Right, key, value);
+            }
+            else
+            {
+                node.Value = value; // Update value if key exists
+            }
+
+            return node;
+        }
+
+        public void Remove(TKey key)
+        {
+            root = Remove(root, key);
+        }
+
+        private Node Remove(Node node, TKey key)
+        {
+            if (node == null) return null;
+
+            int comparison = key.CompareTo(node.Key);
+            if (comparison < 0)
+            {
+                node.Left = Remove(node.Left, key);
+            }
+            else if (comparison > 0)
+            {
+                node.Right = Remove(node.Right, key);
+            }
+            else
+            {
+                // Node with only one child or no child
+                if (node.Left == null) return node.Right;
+                if (node.Right == null) return node.Left;
+
+                // Node with two children: Get the inorder successor
+                Node temp = FindMin(node.Right);
+                node.Key = temp.Key;
+                node.Value = temp.Value;
+                node.Right = Remove(node.Right, temp.Key);
+            }
+
+            return node;
+        }
+
+        private Node FindMin(Node node)
+        {
+            while (node.Left != null) node = node.Left;
+            return node;
+        }
+
+        public TValue Search(TKey key)
+        {
+            Node node = Search(root, key);
+            return node.Value;
+        }
+
+        private Node Search(Node node, TKey key)
+        {
+            if (node == null || key.CompareTo(node.Key) == 0) return node;
+
+            if (key.CompareTo(node.Key) < 0) return Search(node.Left, key);
+
+            return Search(node.Right, key);
+        }
+
+        public Dictionary<TKey, TValue> ToDictionary()
+        {
+            var dictionary = new Dictionary<TKey, TValue>();
+            InOrderTraversal(root, dictionary);
+            return dictionary;
+        }
+
+        private void InOrderTraversal(Node node, Dictionary<TKey, TValue> dictionary)
+        {
+            if (node == null) return;
+
+            InOrderTraversal(node.Left, dictionary);
+            dictionary[node.Key] = node.Value;
+            InOrderTraversal(node.Right, dictionary);
+        }
+    }
+
     public class Quiz
     {
         public int QuizID { get; set; }
         public string QuizName { get; set; }
         public int Marks { get; set; }
-        public string Username { get; set; }    
+        public string Username { get; set; }
     }
 
     public class Question
     {
         public int QuestionID { get; set; }
-        public int QuizID { get; set; } //gonna use this for identify the Quiz
+        public int QuizID { get; set; }
         public string QuestionText { get; set; }
         public string AnswerA { get; set; }
         public string AnswerB { get; set; }
@@ -182,5 +217,4 @@ namespace QuizManagementSystem
         public string AnswerD { get; set; }
         public char CorrectAnswer { get; set; }
     }
-
 }

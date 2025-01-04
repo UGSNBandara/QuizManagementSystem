@@ -1,83 +1,57 @@
-﻿using System.Text;
+﻿using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
-using Microsoft.Data.SqlClient;
-
-
+using System.Text;
 
 namespace QuizManagementSystem
 {
     public class MasterLogin
     {
-        private List<(string Username, string Password)> users = new List<(string, string)>();
+        // Use Dictionary for quick username lookups
+        private Dictionary<string, UserDetails> users = new Dictionary<string, UserDetails>();
 
-        public void LoadUsersFromDatabase()
+        public MasterLogin()
         {
-            string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\sulit\\Documents\\loginData.mdf;Integrated Security=True;Connect Timeout=30";
-            string query = "SELECT username, password FROM admin";
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            string username = reader.GetString(0); // username column
-                            string password = reader.GetString(1); // password column
-                            users.Add((username, password));
-                        }
-                    }
-                }
-            }
+            // Prepopulate with some default data
+            SignUp("Admin", "admin@example.com", "admin", "admin123");
         }
 
         public bool SignUp(string name, string email, string username, string password)
         {
-
-            foreach (var user in users)
+            if (users.ContainsKey(username))
             {
-                if (user.Username == username)
-                {
-                    return false;
-                }
+                return false; // Username already exists
             }
 
-            users.Add((username, password));
+            // Hash the password for security
+            
 
-            string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\sulit\\Documents\\loginData.mdf;Integrated Security=True;Connect Timeout=30";
-            string query = "INSERT INTO admin (name, email, username, password) VALUES (@name, @email, @username, @password)";
-
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            UserDetails newUser = new UserDetails
             {
-                connection.Open();
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@name", name);
-                    command.Parameters.AddWithValue("@email", email);
-                    command.Parameters.AddWithValue("@username", username);
-                    command.Parameters.AddWithValue("@password", password);
-                    command.ExecuteNonQuery();
-                }
-            }
+                Name = name,
+                Email = email,
+                UserName = username,
+                Password = password,
+            };
 
+            users.Add(username, newUser);
             return true;
         }
+
         public bool CheckCredentials(string username, string password)
         {
-            foreach (var user in users)
+            if (users.TryGetValue(username, out UserDetails user))
             {
-                if (user.Username == username && user.Password == password)
-                {
-                    return true;
-                }
+                return user.Password == password;
             }
+
             return false;
         }
 
+        public List<UserDetails> GetAllUsers()
+        {
+            return new List<UserDetails>(users.Values);
+        }
 
     }
 
@@ -89,4 +63,3 @@ namespace QuizManagementSystem
         public string Name { get; set; }
     }
 }
-

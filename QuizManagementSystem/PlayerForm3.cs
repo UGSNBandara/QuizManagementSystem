@@ -182,7 +182,7 @@ namespace QuizManagementSystem
 
         private void AnswerA_CheckedChanged(object sender, EventArgs e)
         {
-            AnswerA.Checked = true;
+            //AnswerA.Checked = true;
             AnswerB.Checked = false;
             AnswerC.Checked = false;
             AnswerD.Checked = false;
@@ -191,7 +191,7 @@ namespace QuizManagementSystem
         private void AnswerB_CheckedChanged(object sender, EventArgs e)
         {
             AnswerA.Checked = false;
-            AnswerB.Checked = true;
+            //AnswerB.Checked = true;
             AnswerD.Checked = false;
             AnswerC.Checked = false;
 
@@ -201,7 +201,7 @@ namespace QuizManagementSystem
         {
             AnswerA.Checked = false;
             AnswerB.Checked = false;
-            AnswerC.Checked = true;
+            //AnswerC.Checked = true;
             AnswerD.Checked = false;
         }
 
@@ -210,7 +210,7 @@ namespace QuizManagementSystem
             AnswerA.Checked = false;
             AnswerB.Checked = false;
             AnswerC.Checked = false;
-            AnswerD.Checked = true;
+            //AnswerD.Checked = true;
         }
     }
 }

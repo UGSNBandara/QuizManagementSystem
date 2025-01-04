@@ -1,77 +1,79 @@
-﻿using System.Text;
+﻿using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
-using Microsoft.Data.SqlClient;
+using System.Text;
 
 namespace QuizManagementSystem
 {
     public class PlayerLogin
     {
-        private List<(string Username, string Password)> player = new List<(string, string)>();
+        // Use Dictionary for quick username lookups
+        private Dictionary<string, PlayerDetails> players = new Dictionary<string, PlayerDetails>();
 
-        public void LoadPlayersFormDatabase()
+        public PlayerLogin()
         {
-            string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\sulit\\Documents\\loginData.mdf;Integrated Security=True;Connect Timeout=30";
-            string query = "SELECT username, password FROM player";
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            string username = reader.GetString(0); 
-                            string password = reader.GetString(1); 
-                            player.Add((username, password));
-                        }
-                    }
-                }
-            }
-        }
-
-        public bool CheckCredentials(string username, string password)
-        {
-            foreach (var user in player)
-            {
-                if (user.Username == username && user.Password == password)
-                {
-                    return true;
-                }
-            }
-            return false;
+            // Prepopulate with some default data
+            SignUp("Player1", "player1@example.com", "player1", "player123");
         }
 
         public bool SignUp(string name, string email, string username, string password)
         {
-            foreach (var user in player)
+            if (players.ContainsKey(username))
             {
-                if (user.Username == username)
-                {
-                    return false;
-                }
+                return false; // Username already exists
             }
 
-            player.Add((username, password));
+            // Hash the password for security
 
-            string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\sulit\\Documents\\loginData.mdf;Integrated Security=True;Connect Timeout=30";
-            string query = "INSERT INTO player (name, email, username, password) VALUES (@name, @email, @username, @password)";
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            PlayerDetails newPlayer = new PlayerDetails()
             {
-                connection.Open();
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@name", name);
-                    command.Parameters.AddWithValue("@email", email);
-                    command.Parameters.AddWithValue("@username", username);
-                    command.Parameters.AddWithValue("@password", password);
-                    command.ExecuteNonQuery();
-                }
-            }
+                Name = name,
+                Email = email,
+                UserName = username,
+                Password = password
+            };
+
+            players.Add(username, newPlayer);
             return true;
         }
+
+        public bool CheckCredentials(string username, string password)
+        {
+            if (players.TryGetValue(username, out PlayerDetails player))
+            {
+                return player.Password == password;
+            }
+
+            return false;
+        }
+
+        public List<PlayerDetails> GetAllPlayers()
+        {
+            return new List<PlayerDetails>(players.Values);
+        }
+
+        private string HashPassword(string password)
+        {
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+                StringBuilder builder = new StringBuilder();
+                foreach (byte b in bytes)
+                {
+                    builder.Append(b.ToString("x2"));
+                }
+                return builder.ToString();
+            }
+        }
     }
+
+    public class PlayerDetails
+    {
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public string Email { get; set; }
+        public string Name { get; set; }
+    }
+
 }
