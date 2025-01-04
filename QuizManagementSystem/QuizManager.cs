@@ -8,11 +8,10 @@ namespace QuizManagementSystem
         private BinarySearchTree<int, Quiz> quizzes = new BinarySearchTree<int, Quiz>();
         private Dictionary<int, List<Question>> questionsByQuizID = new Dictionary<int, List<Question>>();
 
-        // Initialize with some sample data
         public QuizManager()
         {
-            AddQuiz("Math Quiz", 100, "Dulitha");
-            AddQuiz("Science Quiz", 80, "Sulitha");
+            AddQuizStart(1,"Math Quiz", 100, "Dulitha");
+            AddQuizStart(2,"Science Quiz", 80, "Sulitha");
 
             AddQuestion(1, "What is 2+2?", "3", "4", "5", "6", 'B');
             AddQuestion(1, "What is 10/2?", "2", "5", "10", "20", 'B');
@@ -28,6 +27,18 @@ namespace QuizManagementSystem
         {
             int quizID = quizzes.FindMaxID() + 1;
 
+            Quiz newQuiz = new Quiz
+            {
+                QuizID = quizID,
+                QuizName = quizName,
+                Marks = marks,
+                Username = userName
+            };
+            quizzes.Insert(quizID, newQuiz);
+        }
+
+        public void AddQuizStart(int quizID, string quizName, int marks, string userName)
+        {
             Quiz newQuiz = new Quiz
             {
                 QuizID = quizID,
@@ -83,7 +94,6 @@ namespace QuizManagementSystem
         }
     }
 
-    // Binary Search Tree Implementation
     public class BinarySearchTree<TKey, TValue> where TKey : IComparable<TKey>
     {
         private class Node
@@ -154,11 +164,9 @@ namespace QuizManagementSystem
             }
             else
             {
-                // Node with only one child or no child
                 if (node.Left == null) return node.Right;
                 if (node.Right == null) return node.Left;
 
-                // Node with two children: Get the inorder successor
                 Node temp = FindMin(node.Right);
                 node.Key = temp.Key;
                 node.Value = temp.Value;

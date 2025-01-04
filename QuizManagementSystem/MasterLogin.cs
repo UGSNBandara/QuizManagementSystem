@@ -7,12 +7,10 @@ namespace QuizManagementSystem
 {
     public class MasterLogin
     {
-        // Use Dictionary for quick username lookups
         private Dictionary<string, UserDetails> users = new Dictionary<string, UserDetails>();
 
         public MasterLogin()
         {
-            // Prepopulate with some default data
             SignUp("Admin", "admin@example.com", "admin", "admin123");
         }
 
@@ -20,10 +18,8 @@ namespace QuizManagementSystem
         {
             if (users.ContainsKey(username))
             {
-                return false; // Username already exists
+                return false;
             }
-
-            // Hash the password for security
             
 
             UserDetails newUser = new UserDetails
