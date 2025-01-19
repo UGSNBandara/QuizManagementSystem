@@ -14,8 +14,8 @@ namespace QuizManagementSystem
     public partial class MasterForm : Form
     {
         QuizManager quizManager = new QuizManager();
-        UserDetails userDetails = new UserDetails();
-        public MasterForm(UserDetails userD)
+        Master userDetails = new Master();
+        public MasterForm(Master userD)
         {
             InitializeComponent();
             userDetails = userD;
@@ -35,10 +35,13 @@ namespace QuizManagementSystem
             profileUsername.Text = userDetails.UserName; //Not working 
             profileEmail.Text = userDetails.Email;
             profileName.Text = userDetails.Name;
+            UsernameProfile.Text = userDetails.UserName;
 
             LoadQuizzesToPanel();
 
         }
+
+
 
         private void button4_Click(object sender, EventArgs e)
         {
@@ -69,13 +72,11 @@ namespace QuizManagementSystem
         private void LoadQuizzesToPanel()
         {
             quizDisplay.Controls.Clear();
-            Dictionary<int, Quiz> quizzes = quizManager.GetQuiz();
+            IEnumerable<Quiz> quizzes = quizManager.quizzes.GetQuizzesInLinkedListOrder();
 
             int yOffset = 20;
-            foreach (var entry in quizzes)
+            foreach (Quiz quiz in quizzes)
             {
-                Quiz quiz = entry.Value;
-
                 System.Windows.Forms.Button quizButton = new System.Windows.Forms.Button
                 {
                     Text = $"{quiz.QuizName} - {quiz.Marks} Marks (Created by: {quiz.Username})",
@@ -90,8 +91,6 @@ namespace QuizManagementSystem
                 {
                     clickQuizPanel.Visible = true;
                     quizID.Visible = false;
-                    //clickQuizPanel.BringToFront();
-                    //this.Refresh();
                     clickQuizPanelName.Text = quiz.QuizName;
                     clickQuizPanelMarks.Text = quiz.Marks.ToString();
                     clickQuizPanelUser.Text = quiz.Username;
@@ -103,18 +102,14 @@ namespace QuizManagementSystem
             }
         }
 
+
+
+
         private void DisplayQuestions(int quizID)
         {
             panelQuestions.Controls.Clear();
 
-            Dictionary<int, List<Question>> questionsDict = quizManager.LoadQuestionsGroupedByQuizID();
-
-            if (!questionsDict.ContainsKey(quizID))
-            {
-                return;
-            }
-
-            List<Question> questions = questionsDict[quizID];
+            List<Question> questions = quizManager.GetQuestionsByQuizID(quizID);
             int yOffset = 10;
             int num = 0;
             num++;
@@ -296,6 +291,11 @@ namespace QuizManagementSystem
         }
 
         private void panelQuestions_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void profileName_Click(object sender, EventArgs e)
         {
 
         }

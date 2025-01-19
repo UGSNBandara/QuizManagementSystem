@@ -1,27 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace QuizManagementSystem
 {
     public class QuizManager
     {
-        private BinarySearchTree<int, Quiz> quizzes = new BinarySearchTree<int, Quiz>();
-        private Dictionary<int, List<Question>> questionsByQuizID = new Dictionary<int, List<Question>>();
+        public BinarySearchTree quizzes = new BinarySearchTree();
 
         public QuizManager()
         {
-            AddQuizStart(1,"Math Quiz", 100, "Dulitha");
-            AddQuizStart(2,"Science Quiz", 80, "Sulitha");
+            AddQuizStart(1, "Math Quiz", 100, "Dulitha");
+            AddQuizStart(2, "Science Quiz", 80, "Sulitha");
 
             AddQuestion(1, "What is 2+2?", "3", "4", "5", "6", 'B');
             AddQuestion(1, "What is 10/2?", "2", "5", "10", "20", 'B');
             AddQuestion(2, "What is H2O?", "Water", "Hydrogen", "Oxygen", "Carbon Dioxide", 'A');
         }
 
-        public Dictionary<int, Quiz> GetQuiz()
-        {
-            return quizzes.ToDictionary();
-        }
 
         public void AddQuiz(string quizName, int marks, string userName)
         {
@@ -37,6 +33,12 @@ namespace QuizManagementSystem
             quizzes.Insert(quizID, newQuiz);
         }
 
+        public List<Question> GetQuestionsByQuizID(int quizID)
+        {
+  
+            return quizzes.GetQuestionsByQuizID(quizID);
+        }
+
         public void AddQuizStart(int quizID, string quizName, int marks, string userName)
         {
             Quiz newQuiz = new Quiz
@@ -49,31 +51,22 @@ namespace QuizManagementSystem
             quizzes.Insert(quizID, newQuiz);
         }
 
+
         public void DeleteQuiz(int quizID)
         {
             quizzes.Remove(quizID);
-            if (questionsByQuizID.ContainsKey(quizID))
-            {
-                questionsByQuizID.Remove(quizID);
-            }
         }
 
-        public Dictionary<int, List<Question>> LoadQuestionsGroupedByQuizID()
-        {
-            return questionsByQuizID;
-        }
 
+
+        //this one ok
         public void AddQuestion(int quizID, string questionText, string answerA, string answerB, string answerC, string answerD, char correctAnswer)
         {
-            if (!questionsByQuizID.ContainsKey(quizID))
-            {
-                questionsByQuizID[quizID] = new List<Question>();
-            }
+            if (quizzes.Search(quizID) == null) return;
 
             Question newQuestion = new Question
             {
-                QuestionID = questionsByQuizID[quizID].Count + 1,
-                QuizID = quizID,
+                QuestionID = quizzes.Search(quizID).Questions.Count + 1,
                 QuestionText = questionText,
                 AnswerA = answerA,
                 AnswerB = answerB,
@@ -82,28 +75,28 @@ namespace QuizManagementSystem
                 CorrectAnswer = correctAnswer
             };
 
-            questionsByQuizID[quizID].Add(newQuestion);
+            var quiz = quizzes.Search(quizID);
+            quiz.Questions.Add(newQuestion);
         }
 
-        public void DeleteQuestion(int questionID)
-        {
-            foreach (var quiz in questionsByQuizID.Values)
-            {
-                quiz.RemoveAll(q => q.QuestionID == questionID);
-            }
-        }
+
+
     }
 
-    public class BinarySearchTree<TKey, TValue> where TKey : IComparable<TKey>
+    public class BinarySearchTree
     {
         private class Node
         {
-            public TKey Key { get; set; }
-            public TValue Value { get; set; }
+            public int Key { get; set; }
+            public Quiz Value { get; set; }
             public Node Left { get; set; }
             public Node Right { get; set; }
+            public Node Prev { get; set; }
+            public Node Next { get; set; }
 
-            public Node(TKey key, TValue value)
+
+
+            public Node(int key, Quiz value)
             {
                 Key = key;
                 Value = value;
@@ -111,21 +104,22 @@ namespace QuizManagementSystem
         }
 
         private Node root;
+        private Node head;
 
-        public void Insert(TKey key, TValue value)
+        public void Insert(int key, Quiz value)
         {
             root = Insert(root, key, value);
         }
 
-        public TKey FindMaxID()
-        {
-            Node max = FindMax(root);
-            return max == null ? (TKey)(object)0 : max.Key;
-        }
 
-        private Node Insert(Node node, TKey key, TValue value)
+        private Node Insert(Node node, int key, Quiz value)
         {
-            if (node == null) return new Node(key, value);
+            if (node == null)
+            {
+                Node newNode = new Node(key, value);
+                UpdateLinkedList(newNode);
+                return newNode;
+            }
 
             int comparison = key.CompareTo(node.Key);
             if (comparison < 0)
@@ -138,18 +132,71 @@ namespace QuizManagementSystem
             }
             else
             {
-                node.Value = value; // Update value if key exists
+                node.Value = value;
             }
 
             return node;
         }
 
-        public void Remove(TKey key)
+
+
+        private void UpdateLinkedList(Node newNode)
+        {
+            if (head == null)
+            {
+                head = newNode;
+                return;
+            }
+
+            Node current = head;
+            Node prev = null;
+
+            while (current != null && current.Value.Marks < newNode.Value.Marks)
+            {
+                prev = current;
+                current = current.Next;
+            }
+
+            newNode.Next = current;
+            newNode.Prev = prev;
+
+            if (prev != null)
+            {
+                prev.Next = newNode;
+            }
+            else
+            {
+                head = newNode; 
+            }
+
+            if (current != null)
+            {
+                current.Prev = newNode;
+            }
+        }
+
+        public int FindMaxID()
+        {
+            if (root == null) throw new InvalidOperationException("The tree is empty.");
+            Node max = FindMax(root);
+            return max.Key;
+        }
+
+        private Node FindMax(Node node)
+        {
+            if (node == null) return null;
+            while (node.Right != null) node = node.Right;
+            return node;
+        }
+
+        // this ok
+        public void Remove(int key)
         {
             root = Remove(root, key);
         }
 
-        private Node Remove(Node node, TKey key)
+        //this ok
+        private Node Remove(Node node, int key)
         {
             if (node == null) return null;
 
@@ -164,6 +211,11 @@ namespace QuizManagementSystem
             }
             else
             {
+                // Update the linked list pointers
+                if (node.Prev != null) node.Prev.Next = node.Next;
+                if (node.Next != null) node.Next.Prev = node.Prev;
+
+                // Update the tree structure
                 if (node.Left == null) return node.Right;
                 if (node.Right == null) return node.Left;
 
@@ -176,25 +228,23 @@ namespace QuizManagementSystem
             return node;
         }
 
+
+        //this ok
         private Node FindMin(Node node)
         {
+            if (node == null) return null;
             while (node.Left != null) node = node.Left;
             return node;
         }
 
-        private Node FindMax(Node node)
-        {
-            while (node.Right != null) node = node.Right;
-            return node;
-        }
-
-        public TValue Search(TKey key)
+        public Quiz Search(int key)
         {
             Node node = Search(root, key);
+            if (node == null) throw new KeyNotFoundException("Key not found in the tree.");
             return node.Value;
         }
 
-        private Node Search(Node node, TKey key)
+        private Node Search(Node node, int key)
         {
             if (node == null || key.CompareTo(node.Key) == 0) return node;
 
@@ -203,21 +253,29 @@ namespace QuizManagementSystem
             return Search(node.Right, key);
         }
 
-        public Dictionary<TKey, TValue> ToDictionary()
+
+        public IEnumerable<Quiz> GetQuizzesInLinkedListOrder()
         {
-            var dictionary = new Dictionary<TKey, TValue>();
-            InOrderTraversal(root, dictionary);
-            return dictionary;
+            Node current = head;
+            while (current != null)
+            {
+                yield return current.Value;
+                current = current.Next;
+            }
         }
 
-        private void InOrderTraversal(Node node, Dictionary<TKey, TValue> dictionary)
+        //This return the relevent question list by quizID
+        public List<Question> GetQuestionsByQuizID(int quizID)
         {
-            if (node == null) return;
-
-            InOrderTraversal(node.Left, dictionary);
-            dictionary[node.Key] = node.Value;
-            InOrderTraversal(node.Right, dictionary);
+            Quiz quiz = Search(quizID);
+            if (quiz == null)
+            {
+                throw new KeyNotFoundException($"Quiz with ID {quizID} not found.");
+            }
+            return quiz.Questions;
         }
+
+
     }
 
     public class Quiz
@@ -226,12 +284,29 @@ namespace QuizManagementSystem
         public string QuizName { get; set; }
         public int Marks { get; set; }
         public string Username { get; set; }
+        public List<Question> Questions { get; set; } = new List<Question>();
+
+        // Add a question to the quiz, this has implemented  
+        public void AddQuestion(Question question)
+        {
+            if (question == null) throw new ArgumentNullException(nameof(question));
+            Questions.Add(question);
+        }
+
+        // This Remove a question by index; but in the frontend this function has not implement yet
+        public void RemoveQuestion(int index)
+        {
+            if (index < 0 || index >= Questions.Count)
+                throw new ArgumentOutOfRangeException(nameof(index), "Index is out of range.");
+            Questions.RemoveAt(index);
+        }
     }
 
+
+    // This is the class for Questions and its objects store inside the Quiz class object as a list
     public class Question
     {
         public int QuestionID { get; set; }
-        public int QuizID { get; set; }
         public string QuestionText { get; set; }
         public string AnswerA { get; set; }
         public string AnswerB { get; set; }

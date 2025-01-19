@@ -44,7 +44,7 @@
             profileUsername = new Label();
             label3 = new Label();
             pictureBox1 = new PictureBox();
-            label1 = new Label();
+            UsernameProfile = new Label();
             quizPanel = new Panel();
             addingQuizPanel = new Panel();
             addQuizButton = new Button();
@@ -180,7 +180,7 @@
             panelProfile.Controls.Add(profileUsername);
             panelProfile.Controls.Add(label3);
             panelProfile.Controls.Add(pictureBox1);
-            panelProfile.Controls.Add(label1);
+            panelProfile.Controls.Add(UsernameProfile);
             panelProfile.Location = new Point(12, 12);
             panelProfile.Name = "panelProfile";
             panelProfile.Size = new Size(453, 976);
@@ -207,6 +207,7 @@
             profileName.Size = new Size(233, 33);
             profileName.TabIndex = 11;
             profileName.Text = "UserNameAsStored";
+            profileName.Click += profileName_Click;
             // 
             // label6
             // 
@@ -270,16 +271,16 @@
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
-            // label1
+            // UsernameProfile
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Times New Roman", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.ForeColor = SystemColors.Window;
-            label1.Location = new Point(114, 303);
-            label1.Name = "label1";
-            label1.Size = new Size(198, 41);
-            label1.TabIndex = 1;
-            label1.Text = "User's Name";
+            UsernameProfile.AutoSize = true;
+            UsernameProfile.Font = new Font("Times New Roman", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            UsernameProfile.ForeColor = SystemColors.Window;
+            UsernameProfile.Location = new Point(114, 303);
+            UsernameProfile.Name = "UsernameProfile";
+            UsernameProfile.Size = new Size(198, 41);
+            UsernameProfile.TabIndex = 1;
+            UsernameProfile.Text = "User's Name";
             // 
             // quizPanel
             // 
@@ -768,7 +769,7 @@
         private Label profileUsername;
         private Label label3;
         private PictureBox pictureBox1;
-        private Label label1;
+        private Label UsernameProfile;
         private Label label13;
         private Label profileName;
         private Panel quizPanel;

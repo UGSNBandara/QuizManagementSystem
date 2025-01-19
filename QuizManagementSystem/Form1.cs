@@ -59,11 +59,8 @@ namespace QuizManagementSystem
 
             if (ml.CheckCredentials(masterUsernameInput.Text, masterPasswordInput.Text))
             {
-                UserDetails userDetail = new UserDetails();
-                userDetail.UserName = masterUsernameInput.Text;
-                userDetail.Password = masterPasswordInput.Text;
-                userDetail.Name = "Admin";
-                userDetail.Email = "Admin@gmail.com";
+                Master userDetail = new Master();
+                userDetail = ml.GetUser(masterUsernameInput.Text);
 
                 MasterForm mf = new MasterForm(userDetail);
                 mf.Show();
@@ -81,11 +78,12 @@ namespace QuizManagementSystem
         {
             if (pl.CheckCredentials(playerUsernameInput.Text, playerPasswordInput.Text))
             {
-                UserDetails userDetail = new UserDetails();
-                userDetail.UserName = playerUsernameInput.Text;
-                userDetail.Password = playerPasswordInput.Text;
+                Player userDetail = new Player();
+                userDetail = pl.GetPlayer(playerUsernameInput.Text);
 
-                PlayerForm3 pf = new PlayerForm3();
+
+
+                PlayerForm3 pf = new PlayerForm3(userDetail);
                 pf.Show();
                 this.Hide();
             }

@@ -13,14 +13,14 @@ namespace QuizManagementSystem
     public partial class PlayerForm3 : Form
     {
         QuizManager quizManager = new QuizManager();
-        UserDetails userDetails = new UserDetails();
+        Player userDetails = new Player();
 
         private int currentQuestionIndex = 0;
         private List<Question> playerQuestions;
         private int playerScore = 0;
-        private Dictionary<int, List<Question>> questionsDict;
 
-        public PlayerForm3()
+
+        public PlayerForm3(Player p)
         {
             InitializeComponent();
             ProfilePanel.Visible = true;
@@ -28,8 +28,18 @@ namespace QuizManagementSystem
             QuizPanel.Visible = false;
             QuizID.Visible = false;
             QuestionPanel.Visible = false;
+            userDetails = p;
+            updateProfileData();
         }
 
+        private void updateProfileData()
+        {
+            UsernameProfile.Text = userDetails.Username;
+            profileName.Text = userDetails.Name;
+            profileEmail.Text = userDetails.Email;
+            profileUsername.Text = userDetails.Username;
+            profileScore.Text = userDetails.Score.ToString();
+        }
         private void button1_Click(object sender, EventArgs e)
         {
             sf f1 = new sf();
@@ -45,13 +55,11 @@ namespace QuizManagementSystem
         private void LoadQuizzesToPanel()
         {
             QuizShowPanel.Controls.Clear();
-            Dictionary<int, Quiz> quizzes = quizManager.GetQuiz();
+            IEnumerable<Quiz> quizzes = quizManager.quizzes.GetQuizzesInLinkedListOrder();
 
             int yOffset = 20;
-            foreach (var entry in quizzes)
+            foreach (Quiz quiz in quizzes)
             {
-                Quiz quiz = entry.Value;
-
                 System.Windows.Forms.Button quizButton = new System.Windows.Forms.Button
                 {
                     Text = $"{quiz.QuizName} - {quiz.Marks} Marks (Created by: {quiz.Username})",
@@ -63,29 +71,24 @@ namespace QuizManagementSystem
                 };
 
                 quizButton.Click += (s, e) =>
-                 {
-                     ClickQuizPanel.Visible = true;
-                     //clickQuizPanel.BringToFront();
-                     //this.Refresh();
-                     ClickQuizPanelName.Text = quiz.QuizName;
-                     ClickQuizPanelMarks.Text = quiz.Marks.ToString();
-                     ClickQuizPanelUser.Text = quiz.Username;
-                     QuizID.Text = quiz.QuizID.ToString();
-                 };
+                {
+                    ClickQuizPanel.Visible = true;
+                    ClickQuizPanelName.Text = quiz.QuizName;
+                    ClickQuizPanelMarks.Text = quiz.Marks.ToString();
+                    ClickQuizPanelUser.Text = quiz.Username;
+                    QuizID.Text = quiz.QuizID.ToString();
+                };
 
                 QuizShowPanel.Controls.Add(quizButton);
                 yOffset += 150;
             }
         }
 
-        private void LoadQuestionToDictionary()
-        {
-            questionsDict = quizManager.LoadQuestionsGroupedByQuizID();
-        }
+
 
         private void StartQuiz(int quizID)
         {
-            playerQuestions = questionsDict[quizID];
+            playerQuestions = quizManager.GetQuestionsByQuizID(quizID);
             //Should be solve this case when there is no question in the quiz
             currentQuestionIndex = 0;
             playerScore = 0;
@@ -171,7 +174,6 @@ namespace QuizManagementSystem
             QuestionPanel.Visible = true;
             ClickQuizPanel.Visible = false;
             QuizPanel.Visible = false;
-            LoadQuestionToDictionary();
             StartQuiz(int.Parse(QuizID.Text));
         }
 
@@ -211,6 +213,16 @@ namespace QuizManagementSystem
             AnswerB.Checked = false;
             AnswerC.Checked = false;
             //AnswerD.Checked = true;
+        }
+
+        private void ProfilePanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

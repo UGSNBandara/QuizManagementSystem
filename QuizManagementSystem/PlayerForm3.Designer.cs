@@ -28,7 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PlayerForm3));
             ProfilePanel = new Panel();
+            label13 = new Label();
+            profileName = new Label();
+            label6 = new Label();
+            label3 = new Label();
+            profileEmail = new Label();
+            profileUsername = new Label();
+            UsernameProfile = new Label();
+            pictureBox1 = new PictureBox();
             QuestionPanel = new Panel();
             button10 = new Button();
             button8 = new Button();
@@ -55,6 +64,10 @@
             ClickQuizPanelName = new Label();
             button5 = new Button();
             QuizShowPanel = new Panel();
+            label4 = new Label();
+            profileScore = new Label();
+            ProfilePanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             QuestionPanel.SuspendLayout();
             QuizPanel.SuspendLayout();
             ClickQuizPanel.SuspendLayout();
@@ -63,10 +76,107 @@
             // ProfilePanel
             // 
             ProfilePanel.BackColor = SystemColors.WindowText;
+            ProfilePanel.Controls.Add(label4);
+            ProfilePanel.Controls.Add(profileScore);
+            ProfilePanel.Controls.Add(label13);
+            ProfilePanel.Controls.Add(profileName);
+            ProfilePanel.Controls.Add(label6);
+            ProfilePanel.Controls.Add(label3);
+            ProfilePanel.Controls.Add(profileEmail);
+            ProfilePanel.Controls.Add(profileUsername);
+            ProfilePanel.Controls.Add(UsernameProfile);
+            ProfilePanel.Controls.Add(pictureBox1);
             ProfilePanel.Location = new Point(24, 23);
             ProfilePanel.Name = "ProfilePanel";
             ProfilePanel.Size = new Size(457, 898);
             ProfilePanel.TabIndex = 0;
+            ProfilePanel.Paint += ProfilePanel_Paint;
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Font = new Font("Times New Roman", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label13.ForeColor = SystemColors.Window;
+            label13.Location = new Point(36, 511);
+            label13.Name = "label13";
+            label13.Size = new Size(79, 33);
+            label13.TabIndex = 19;
+            label13.Text = "Name";
+            // 
+            // profileName
+            // 
+            profileName.AutoSize = true;
+            profileName.Font = new Font("Times New Roman", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            profileName.ForeColor = SystemColors.Window;
+            profileName.Location = new Point(188, 511);
+            profileName.Name = "profileName";
+            profileName.Size = new Size(233, 33);
+            profileName.TabIndex = 18;
+            profileName.Text = "UserNameAsStored";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Times New Roman", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label6.ForeColor = SystemColors.Window;
+            label6.Location = new Point(36, 588);
+            label6.Name = "label6";
+            label6.Size = new Size(130, 33);
+            label6.TabIndex = 17;
+            label6.Text = "UserName";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Times New Roman", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label3.ForeColor = SystemColors.Window;
+            label3.Location = new Point(36, 660);
+            label3.Name = "label3";
+            label3.Size = new Size(80, 33);
+            label3.TabIndex = 16;
+            label3.Text = "Email";
+            // 
+            // profileEmail
+            // 
+            profileEmail.AutoSize = true;
+            profileEmail.Font = new Font("Times New Roman", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            profileEmail.ForeColor = SystemColors.Window;
+            profileEmail.Location = new Point(188, 660);
+            profileEmail.Name = "profileEmail";
+            profileEmail.Size = new Size(233, 33);
+            profileEmail.TabIndex = 15;
+            profileEmail.Text = "UserNameAsStored";
+            // 
+            // profileUsername
+            // 
+            profileUsername.AutoSize = true;
+            profileUsername.Font = new Font("Times New Roman", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            profileUsername.ForeColor = SystemColors.Window;
+            profileUsername.Location = new Point(188, 588);
+            profileUsername.Name = "profileUsername";
+            profileUsername.Size = new Size(233, 33);
+            profileUsername.TabIndex = 14;
+            profileUsername.Text = "UserNameAsStored";
+            // 
+            // UsernameProfile
+            // 
+            UsernameProfile.AutoSize = true;
+            UsernameProfile.Font = new Font("Times New Roman", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            UsernameProfile.ForeColor = SystemColors.Window;
+            UsernameProfile.Location = new Point(111, 334);
+            UsernameProfile.Name = "UsernameProfile";
+            UsernameProfile.Size = new Size(198, 41);
+            UsernameProfile.TabIndex = 13;
+            UsernameProfile.Text = "User's Name";
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.BackgroundImage = (Image)resources.GetObject("pictureBox1.BackgroundImage");
+            pictureBox1.Location = new Point(88, 78);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(237, 228);
+            pictureBox1.TabIndex = 1;
+            pictureBox1.TabStop = false;
             // 
             // QuestionPanel
             // 
@@ -373,6 +483,29 @@
             QuizShowPanel.Size = new Size(844, 786);
             QuizShowPanel.TabIndex = 0;
             // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Times New Roman", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label4.ForeColor = SystemColors.Window;
+            label4.Location = new Point(36, 728);
+            label4.Name = "label4";
+            label4.Size = new Size(78, 33);
+            label4.TabIndex = 21;
+            label4.Text = "Score";
+            label4.Click += label4_Click;
+            // 
+            // profileScore
+            // 
+            profileScore.AutoSize = true;
+            profileScore.Font = new Font("Times New Roman", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            profileScore.ForeColor = SystemColors.Window;
+            profileScore.Location = new Point(188, 728);
+            profileScore.Name = "profileScore";
+            profileScore.Size = new Size(233, 33);
+            profileScore.TabIndex = 20;
+            profileScore.Text = "UserNameAsStored";
+            // 
             // PlayerForm3
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -389,6 +522,9 @@
             Name = "PlayerForm3";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "PlayerForm2";
+            ProfilePanel.ResumeLayout(false);
+            ProfilePanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             QuestionPanel.ResumeLayout(false);
             QuestionPanel.PerformLayout();
             QuizPanel.ResumeLayout(false);
@@ -431,5 +567,15 @@
         private CheckBox AnswerB;
         private CheckBox AnswerA;
         private Button button10;
+        private PictureBox pictureBox1;
+        private Label label13;
+        private Label profileName;
+        private Label label6;
+        private Label label3;
+        private Label profileEmail;
+        private Label profileUsername;
+        private Label UsernameProfile;
+        private Label label4;
+        private Label profileScore;
     }
 }
