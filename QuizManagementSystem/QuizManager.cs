@@ -79,8 +79,6 @@ namespace QuizManagementSystem
             quiz.Questions.Add(newQuestion);
         }
 
-
-
     }
 
     public class BinarySearchTree

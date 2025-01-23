@@ -15,6 +15,8 @@ namespace QuizManagementSystem
     {
         QuizManager quizManager = new QuizManager();
         Master userDetails = new Master();
+        PlayerLogin playerLogin = new PlayerLogin();
+        bool isLeadboardDisplay = false;
         public MasterForm(Master userD)
         {
             InitializeComponent();
@@ -24,8 +26,7 @@ namespace QuizManagementSystem
         private void MasterForm_Load(object sender, EventArgs e)
         {
             panelProfile.Visible = true;
-            quizPanel.Visible = false;
-            leadboardPanel.Visible = false;
+            quizPanel.Visible = true;
             addingQuizPanel.Visible = false;
             clickQuizPanel.Visible = false;
             QuestionPanel.Visible = false;
@@ -57,15 +58,16 @@ namespace QuizManagementSystem
 
         private void button1_Click(object sender, EventArgs e)
         {
-            quizPanel.Visible = true;
-            leadboardPanel.Visible = false;
-
+            LoadQuizzesToPanel();
+            addNewQuiz.Text = "Add";
+            isLeadboardDisplay = false;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            leadboardPanel.Visible = true;
-            quizPanel.Visible = false;
+            LoadPlayersToLeadBoard();
+            addNewQuiz.Text = "Refresh";
+            isLeadboardDisplay = true;
 
         }
 
@@ -188,6 +190,38 @@ namespace QuizManagementSystem
             panelQuestions.AutoScroll = true;
         }
 
+        public void LoadPlayersToLeadBoard()
+        {
+            quizDisplay.Controls.Clear();
+
+            IEnumerable<Player> players = playerLogin.GetPlayersInOder();
+
+            const int buttonWidth = 750;
+            const int buttonHeight = 100;
+            int yOffset = 20;
+
+            List<System.Windows.Forms.Button> quizButtons = new List<System.Windows.Forms.Button>();
+            int rank = 0;
+
+            foreach (Player player in players)
+            {
+                System.Windows.Forms.Button quizButton = new System.Windows.Forms.Button
+                {
+                    Text = $"{rank + 1}      |      {player.Score}      |     {player.Username}",
+                    Size = new Size(buttonWidth, buttonHeight),
+                    Location = new Point(20, yOffset),
+                    BackColor = Color.RoyalBlue,
+                    ForeColor = Color.White,
+                    Font = new Font("Times New Roman", 14)
+                };
+
+                quizButtons.Add(quizButton);
+                yOffset += 150;
+                rank++;
+            }
+
+            quizDisplay.Controls.AddRange(quizButtons.ToArray());
+        }
 
         private void AddQuiz(string quizName, int marks, string userName)
         {
@@ -197,8 +231,15 @@ namespace QuizManagementSystem
 
         private void addNewQuiz_Click(object sender, EventArgs e)
         {
-            addingQuizPanel.Visible = true;
-            addingQuizPanel.BringToFront();
+            if (isLeadboardDisplay)
+            {
+                LoadPlayersToLeadBoard();
+            }
+            else
+            {
+                addingQuizPanel.Visible = true;
+                addingQuizPanel.BringToFront();
+            }
         }
 
         private void addQuizButton_Click_1(object sender, EventArgs e)

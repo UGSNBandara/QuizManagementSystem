@@ -20,7 +20,8 @@ namespace QuizManagementSystem
 
         private int currentQuestionIndex = 0;
         private List<Question> playerQuestions;
-        private int playerScore = 0;
+        private double playerScore = 0;
+        private int totalScoreOfCurrentQuiz = 0;
 
 
         public PlayerForm3(Player p)
@@ -87,6 +88,8 @@ namespace QuizManagementSystem
                     ClickQuizPanelMarks.Text = quiz.Marks.ToString();
                     ClickQuizPanelUser.Text = quiz.Username;
                     QuizID.Text = quiz.QuizID.ToString();
+                    totalScoreOfCurrentQuiz = quiz.Marks;
+
                 };
 
                 QuizShowPanel.Controls.Add(quizButton);
@@ -111,7 +114,7 @@ namespace QuizManagementSystem
             {
                 Button quizButton = new Button
                 {
-                    Text = $"{player.Username}  -  {player.Score}  -  {rank + 1})",
+                    Text = $"{rank + 1}      |      {player.Score}      |     {player.Username}",
                     Size = new Size(buttonWidth, buttonHeight),
                     Location = new Point(20, yOffset),
                     BackColor = Color.RoyalBlue, 
@@ -142,10 +145,12 @@ namespace QuizManagementSystem
         {
             if (currentQuestionIndex >= playerQuestions.Count)
             {
+                playerScore = playerScore * totalScoreOfCurrentQuiz / playerQuestions.Count;
                 ShowResult();
                 playerLogin.UpdateScore(userDetails.Username, playerScore);
                 return;
             }
+
 
             Question currentQuestion = playerQuestions[currentQuestionIndex];
 
@@ -196,7 +201,7 @@ namespace QuizManagementSystem
 
         private void ShowResult()
         {
-            MessageBox.Show($"You have scored {playerScore} out of {playerQuestions.Count}");
+            MessageBox.Show($"You have scored {playerScore} out of {totalScoreOfCurrentQuiz}");
             QuestionPanel.Visible = false;
             QuizPanel.Visible = true;
             return;

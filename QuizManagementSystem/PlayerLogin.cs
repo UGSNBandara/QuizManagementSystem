@@ -26,7 +26,7 @@ namespace QuizManagementSystem
             AddPlayer("player4", "Player4", 40, "player4@email.com", "player123");
         }
 
-        public void AddPlayer(string username, string name, int score, string email, string password)
+        public void AddPlayer(string username, string name, double score, string email, string password)
         {
             Player newPlayer = new Player(username, name, score, email, password);
             PlayerDS.AddPlayer(newPlayer);
@@ -76,7 +76,7 @@ namespace QuizManagementSystem
             return false;
         }
 
-        public void UpdateScore(string username, int marks)
+        public void UpdateScore(string username, double marks)
         {
             PlayerDS.UpdateScore(username, marks);
         }
@@ -139,12 +139,12 @@ namespace QuizManagementSystem
             return node;
         }
 
-        public void UpdateScore(string username, int marks)
+        public void UpdateScore(string username, double marks)
         {
             UpdateScore(Root, username, marks);
         }
 
-        public void UpdateScore(Node node, string username, int marks)
+        public void UpdateScore(Node node, string username, double marks)
         {
             int comparison = username.CompareTo(node.Player.Username);
 
@@ -335,11 +335,11 @@ namespace QuizManagementSystem
     {
         public string Username { get; set; }
         public string Name { get; set; }
-        public int Score { get; set; }
+        public double Score { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
 
-        public Player(string username, string name, int score, string email, string password)
+        public Player(string username, string name, double score, string email, string password)
         {
             Username = username;
             Name = name;

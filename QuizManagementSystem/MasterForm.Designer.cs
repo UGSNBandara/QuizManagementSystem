@@ -30,12 +30,31 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MasterForm));
             navPanel = new Panel();
-            leadboardPanel = new Panel();
             button4 = new Button();
             button3 = new Button();
             button2 = new Button();
             button1 = new Button();
             panelProfile = new Panel();
+            QuestionPanel = new Panel();
+            backtoQuizPanel = new Button();
+            newQuestionAdd = new Button();
+            deleteQuestion = new Button();
+            newQuestionForm = new Panel();
+            panelQuestions = new Panel();
+            label14 = new Label();
+            label12 = new Label();
+            label5 = new Label();
+            label4 = new Label();
+            answernum = new Label();
+            correctAnswer = new TextBox();
+            cancelQuestion = new Button();
+            clearBox = new Button();
+            submitQuestion = new Button();
+            answerD = new TextBox();
+            answerC = new TextBox();
+            answerB = new TextBox();
+            answerA = new TextBox();
+            question = new TextBox();
             label13 = new Label();
             profileName = new Label();
             label6 = new Label();
@@ -65,39 +84,18 @@
             label11 = new Label();
             clickQuizPanelName = new Label();
             quizDisplay = new Panel();
-            QuestionPanel = new Panel();
-            panelQuestions = new Panel();
-            backtoQuizPanel = new Button();
-            newQuestionAdd = new Button();
-            deleteQuestion = new Button();
-            newQuestionForm = new Panel();
-            label14 = new Label();
-            label12 = new Label();
-            label5 = new Label();
-            label4 = new Label();
-            answernum = new Label();
-            correctAnswer = new TextBox();
-            cancelQuestion = new Button();
-            clearBox = new Button();
-            submitQuestion = new Button();
-            answerD = new TextBox();
-            answerC = new TextBox();
-            answerB = new TextBox();
-            answerA = new TextBox();
-            question = new TextBox();
             navPanel.SuspendLayout();
             panelProfile.SuspendLayout();
+            QuestionPanel.SuspendLayout();
+            newQuestionForm.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             quizPanel.SuspendLayout();
             addingQuizPanel.SuspendLayout();
             clickQuizPanel.SuspendLayout();
-            QuestionPanel.SuspendLayout();
-            newQuestionForm.SuspendLayout();
             SuspendLayout();
             // 
             // navPanel
             // 
-            navPanel.Controls.Add(leadboardPanel);
             navPanel.Controls.Add(button4);
             navPanel.Controls.Add(button3);
             navPanel.Controls.Add(button2);
@@ -107,15 +105,6 @@
             navPanel.Size = new Size(250, 1000);
             navPanel.TabIndex = 0;
             navPanel.Paint += navPanel_Paint;
-            // 
-            // leadboardPanel
-            // 
-            leadboardPanel.AutoScroll = true;
-            leadboardPanel.BackColor = Color.Violet;
-            leadboardPanel.Location = new Point(81, 361);
-            leadboardPanel.Name = "leadboardPanel";
-            leadboardPanel.Size = new Size(94, 91);
-            leadboardPanel.TabIndex = 4;
             // 
             // button4
             // 
@@ -186,327 +175,6 @@
             panelProfile.Size = new Size(453, 976);
             panelProfile.TabIndex = 2;
             // 
-            // label13
-            // 
-            label13.AutoSize = true;
-            label13.Font = new Font("Times New Roman", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label13.ForeColor = SystemColors.Window;
-            label13.Location = new Point(39, 480);
-            label13.Name = "label13";
-            label13.Size = new Size(79, 33);
-            label13.TabIndex = 12;
-            label13.Text = "Name";
-            // 
-            // profileName
-            // 
-            profileName.AutoSize = true;
-            profileName.Font = new Font("Times New Roman", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            profileName.ForeColor = SystemColors.Window;
-            profileName.Location = new Point(191, 480);
-            profileName.Name = "profileName";
-            profileName.Size = new Size(233, 33);
-            profileName.TabIndex = 11;
-            profileName.Text = "UserNameAsStored";
-            profileName.Click += profileName_Click;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Times New Roman", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label6.ForeColor = SystemColors.Window;
-            label6.Location = new Point(39, 557);
-            label6.Name = "label6";
-            label6.Size = new Size(130, 33);
-            label6.TabIndex = 8;
-            label6.Text = "UserName";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Times New Roman", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.ForeColor = SystemColors.Window;
-            label2.Location = new Point(39, 629);
-            label2.Name = "label2";
-            label2.Size = new Size(80, 33);
-            label2.TabIndex = 7;
-            label2.Text = "Email";
-            // 
-            // profileEmail
-            // 
-            profileEmail.AutoSize = true;
-            profileEmail.Font = new Font("Times New Roman", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            profileEmail.ForeColor = SystemColors.Window;
-            profileEmail.Location = new Point(191, 629);
-            profileEmail.Name = "profileEmail";
-            profileEmail.Size = new Size(233, 33);
-            profileEmail.TabIndex = 6;
-            profileEmail.Text = "UserNameAsStored";
-            // 
-            // profileUsername
-            // 
-            profileUsername.AutoSize = true;
-            profileUsername.Font = new Font("Times New Roman", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            profileUsername.ForeColor = SystemColors.Window;
-            profileUsername.Location = new Point(191, 557);
-            profileUsername.Name = "profileUsername";
-            profileUsername.Size = new Size(233, 33);
-            profileUsername.TabIndex = 5;
-            profileUsername.Text = "UserNameAsStored";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Times New Roman", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.Location = new Point(14, 496);
-            label3.Name = "label3";
-            label3.Size = new Size(0, 25);
-            label3.TabIndex = 4;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.BackgroundImage = (Image)resources.GetObject("pictureBox1.BackgroundImage");
-            pictureBox1.Location = new Point(95, 51);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(237, 228);
-            pictureBox1.TabIndex = 0;
-            pictureBox1.TabStop = false;
-            // 
-            // UsernameProfile
-            // 
-            UsernameProfile.AutoSize = true;
-            UsernameProfile.Font = new Font("Times New Roman", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            UsernameProfile.ForeColor = SystemColors.Window;
-            UsernameProfile.Location = new Point(114, 303);
-            UsernameProfile.Name = "UsernameProfile";
-            UsernameProfile.Size = new Size(198, 41);
-            UsernameProfile.TabIndex = 1;
-            UsernameProfile.Text = "User's Name";
-            // 
-            // quizPanel
-            // 
-            quizPanel.BackColor = SystemColors.WindowText;
-            quizPanel.Controls.Add(addingQuizPanel);
-            quizPanel.Controls.Add(addNewQuiz);
-            quizPanel.Controls.Add(clickQuizPanel);
-            quizPanel.Controls.Add(quizDisplay);
-            quizPanel.Location = new Point(471, 13);
-            quizPanel.Name = "quizPanel";
-            quizPanel.Size = new Size(873, 975);
-            quizPanel.TabIndex = 3;
-            // 
-            // addingQuizPanel
-            // 
-            addingQuizPanel.BackColor = SystemColors.WindowFrame;
-            addingQuizPanel.Controls.Add(addQuizButton);
-            addingQuizPanel.Controls.Add(textBoxTotalMark);
-            addingQuizPanel.Controls.Add(textBoxQuizName);
-            addingQuizPanel.Controls.Add(label9);
-            addingQuizPanel.Controls.Add(label8);
-            addingQuizPanel.Controls.Add(label7);
-            addingQuizPanel.Location = new Point(85, 82);
-            addingQuizPanel.Name = "addingQuizPanel";
-            addingQuizPanel.Size = new Size(723, 314);
-            addingQuizPanel.TabIndex = 4;
-            // 
-            // addQuizButton
-            // 
-            addQuizButton.Font = new Font("Times New Roman", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            addQuizButton.Location = new Point(557, 248);
-            addQuizButton.Name = "addQuizButton";
-            addQuizButton.Size = new Size(122, 44);
-            addQuizButton.TabIndex = 2;
-            addQuizButton.Text = "Add ";
-            addQuizButton.UseVisualStyleBackColor = true;
-            addQuizButton.Click += addQuizButton_Click_1;
-            // 
-            // textBoxTotalMark
-            // 
-            textBoxTotalMark.BorderStyle = BorderStyle.FixedSingle;
-            textBoxTotalMark.Font = new Font("Times New Roman", 12F);
-            textBoxTotalMark.Location = new Point(230, 178);
-            textBoxTotalMark.Name = "textBoxTotalMark";
-            textBoxTotalMark.Size = new Size(156, 35);
-            textBoxTotalMark.TabIndex = 4;
-            // 
-            // textBoxQuizName
-            // 
-            textBoxQuizName.BorderStyle = BorderStyle.FixedSingle;
-            textBoxQuizName.Font = new Font("Times New Roman", 12F);
-            textBoxQuizName.Location = new Point(230, 100);
-            textBoxQuizName.Name = "textBoxQuizName";
-            textBoxQuizName.Size = new Size(449, 35);
-            textBoxQuizName.TabIndex = 3;
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Font = new Font("Times New Roman", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label9.ForeColor = SystemColors.Window;
-            label9.Location = new Point(20, 178);
-            label9.Name = "label9";
-            label9.Size = new Size(155, 32);
-            label9.TabIndex = 2;
-            label9.Text = "Total marks";
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Font = new Font("Times New Roman", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label8.ForeColor = SystemColors.Window;
-            label8.Location = new Point(20, 97);
-            label8.Name = "label8";
-            label8.Size = new Size(132, 32);
-            label8.TabIndex = 1;
-            label8.Text = "Quiz Title";
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Font = new Font("Times New Roman", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label7.ForeColor = SystemColors.Window;
-            label7.Location = new Point(263, 24);
-            label7.Name = "label7";
-            label7.Size = new Size(196, 32);
-            label7.TabIndex = 0;
-            label7.Text = "Add Your Quiz";
-            // 
-            // addNewQuiz
-            // 
-            addNewQuiz.Font = new Font("Times New Roman", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            addNewQuiz.Location = new Point(726, 34);
-            addNewQuiz.Name = "addNewQuiz";
-            addNewQuiz.Size = new Size(122, 44);
-            addNewQuiz.TabIndex = 1;
-            addNewQuiz.Text = "Add ";
-            addNewQuiz.UseVisualStyleBackColor = true;
-            addNewQuiz.Click += addNewQuiz_Click;
-            // 
-            // clickQuizPanel
-            // 
-            clickQuizPanel.BackColor = SystemColors.WindowFrame;
-            clickQuizPanel.Controls.Add(quizID);
-            clickQuizPanel.Controls.Add(clickQuizPanelBack);
-            clickQuizPanel.Controls.Add(clickQuizPanelUser);
-            clickQuizPanel.Controls.Add(label10);
-            clickQuizPanel.Controls.Add(clickQuizPanelDelete);
-            clickQuizPanel.Controls.Add(clickQuizPanelView);
-            clickQuizPanel.Controls.Add(clickQuizPanelMarks);
-            clickQuizPanel.Controls.Add(label11);
-            clickQuizPanel.Controls.Add(clickQuizPanelName);
-            clickQuizPanel.Location = new Point(85, 84);
-            clickQuizPanel.Name = "clickQuizPanel";
-            clickQuizPanel.Size = new Size(723, 278);
-            clickQuizPanel.TabIndex = 5;
-            // 
-            // quizID
-            // 
-            quizID.AutoSize = true;
-            quizID.BackColor = SystemColors.Window;
-            quizID.Location = new Point(634, 41);
-            quizID.Name = "quizID";
-            quizID.Size = new Size(27, 25);
-            quizID.TabIndex = 8;
-            quizID.Text = "id";
-            quizID.UseWaitCursor = true;
-            // 
-            // clickQuizPanelBack
-            // 
-            clickQuizPanelBack.Font = new Font("Times New Roman", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            clickQuizPanelBack.Location = new Point(39, 194);
-            clickQuizPanelBack.Name = "clickQuizPanelBack";
-            clickQuizPanelBack.Size = new Size(136, 55);
-            clickQuizPanelBack.TabIndex = 7;
-            clickQuizPanelBack.Text = "Back";
-            clickQuizPanelBack.UseVisualStyleBackColor = true;
-            clickQuizPanelBack.Click += clickQuizPanelBack_Click;
-            // 
-            // clickQuizPanelUser
-            // 
-            clickQuizPanelUser.AutoSize = true;
-            clickQuizPanelUser.Font = new Font("Times New Roman", 16F, FontStyle.Bold);
-            clickQuizPanelUser.ForeColor = SystemColors.Window;
-            clickQuizPanelUser.Location = new Point(255, 128);
-            clickQuizPanelUser.Name = "clickQuizPanelUser";
-            clickQuizPanelUser.Size = new Size(165, 36);
-            clickQuizPanelUser.TabIndex = 6;
-            clickQuizPanelUser.Text = "User Name";
-            // 
-            // label10
-            // 
-            label10.AutoSize = true;
-            label10.Font = new Font("Times New Roman", 16F, FontStyle.Bold);
-            label10.ForeColor = SystemColors.Window;
-            label10.Location = new Point(39, 128);
-            label10.Name = "label10";
-            label10.Size = new Size(196, 36);
-            label10.TabIndex = 5;
-            label10.Text = "Created By : ";
-            // 
-            // clickQuizPanelDelete
-            // 
-            clickQuizPanelDelete.Font = new Font("Times New Roman", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            clickQuizPanelDelete.Location = new Point(557, 194);
-            clickQuizPanelDelete.Name = "clickQuizPanelDelete";
-            clickQuizPanelDelete.Size = new Size(136, 55);
-            clickQuizPanelDelete.TabIndex = 4;
-            clickQuizPanelDelete.Text = "Delete";
-            clickQuizPanelDelete.UseVisualStyleBackColor = true;
-            clickQuizPanelDelete.Click += clickQuizPanelDelete_Click;
-            // 
-            // clickQuizPanelView
-            // 
-            clickQuizPanelView.Font = new Font("Times New Roman", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            clickQuizPanelView.Location = new Point(195, 194);
-            clickQuizPanelView.Name = "clickQuizPanelView";
-            clickQuizPanelView.Size = new Size(136, 55);
-            clickQuizPanelView.TabIndex = 3;
-            clickQuizPanelView.Text = "View";
-            clickQuizPanelView.UseVisualStyleBackColor = true;
-            clickQuizPanelView.Click += clickQuizPanelView_Click;
-            // 
-            // clickQuizPanelMarks
-            // 
-            clickQuizPanelMarks.AutoSize = true;
-            clickQuizPanelMarks.Font = new Font("Times New Roman", 16F, FontStyle.Bold);
-            clickQuizPanelMarks.ForeColor = SystemColors.Window;
-            clickQuizPanelMarks.Location = new Point(246, 70);
-            clickQuizPanelMarks.Name = "clickQuizPanelMarks";
-            clickQuizPanelMarks.Size = new Size(47, 36);
-            clickQuizPanelMarks.TabIndex = 2;
-            clickQuizPanelMarks.Text = "10";
-            // 
-            // label11
-            // 
-            label11.AutoSize = true;
-            label11.Font = new Font("Times New Roman", 16F, FontStyle.Bold);
-            label11.ForeColor = SystemColors.Window;
-            label11.Location = new Point(39, 70);
-            label11.Name = "label11";
-            label11.Size = new Size(210, 36);
-            label11.TabIndex = 1;
-            label11.Text = "Total Marks : ";
-            // 
-            // clickQuizPanelName
-            // 
-            clickQuizPanelName.AutoSize = true;
-            clickQuizPanelName.Font = new Font("Times New Roman", 16F, FontStyle.Bold);
-            clickQuizPanelName.ForeColor = SystemColors.Window;
-            clickQuizPanelName.Location = new Point(279, 16);
-            clickQuizPanelName.Name = "clickQuizPanelName";
-            clickQuizPanelName.Size = new Size(160, 36);
-            clickQuizPanelName.TabIndex = 0;
-            clickQuizPanelName.Text = "QuizName";
-            clickQuizPanelName.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // quizDisplay
-            // 
-            quizDisplay.AutoScroll = true;
-            quizDisplay.BackColor = SystemColors.Window;
-            quizDisplay.Location = new Point(22, 143);
-            quizDisplay.Name = "quizDisplay";
-            quizDisplay.Size = new Size(826, 800);
-            quizDisplay.TabIndex = 1;
-            // 
             // QuestionPanel
             // 
             QuestionPanel.BackColor = SystemColors.WindowText;
@@ -514,19 +182,10 @@
             QuestionPanel.Controls.Add(backtoQuizPanel);
             QuestionPanel.Controls.Add(newQuestionAdd);
             QuestionPanel.Controls.Add(deleteQuestion);
-            QuestionPanel.Location = new Point(471, 12);
+            QuestionPanel.Location = new Point(1, 0);
             QuestionPanel.Name = "QuestionPanel";
             QuestionPanel.Size = new Size(873, 976);
             QuestionPanel.TabIndex = 4;
-            // 
-            // panelQuestions
-            // 
-            panelQuestions.BackColor = SystemColors.Window;
-            panelQuestions.Location = new Point(10, 19);
-            panelQuestions.Name = "panelQuestions";
-            panelQuestions.Size = new Size(849, 864);
-            panelQuestions.TabIndex = 0;
-            panelQuestions.Paint += panelQuestions_Paint;
             // 
             // backtoQuizPanel
             // 
@@ -578,10 +237,19 @@
             newQuestionForm.Controls.Add(answerB);
             newQuestionForm.Controls.Add(answerA);
             newQuestionForm.Controls.Add(question);
-            newQuestionForm.Location = new Point(471, 12);
+            newQuestionForm.Location = new Point(474, 0);
             newQuestionForm.Name = "newQuestionForm";
             newQuestionForm.Size = new Size(867, 430);
             newQuestionForm.TabIndex = 0;
+            // 
+            // panelQuestions
+            // 
+            panelQuestions.BackColor = SystemColors.Window;
+            panelQuestions.Location = new Point(10, 18);
+            panelQuestions.Name = "panelQuestions";
+            panelQuestions.Size = new Size(849, 864);
+            panelQuestions.TabIndex = 0;
+            panelQuestions.Paint += panelQuestions_Paint;
             // 
             // label14
             // 
@@ -724,6 +392,328 @@
             question.Size = new Size(825, 39);
             question.TabIndex = 7;
             // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Font = new Font("Times New Roman", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label13.ForeColor = SystemColors.Window;
+            label13.Location = new Point(39, 480);
+            label13.Name = "label13";
+            label13.Size = new Size(79, 33);
+            label13.TabIndex = 12;
+            label13.Text = "Name";
+            // 
+            // profileName
+            // 
+            profileName.AutoSize = true;
+            profileName.Font = new Font("Times New Roman", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            profileName.ForeColor = SystemColors.Window;
+            profileName.Location = new Point(191, 480);
+            profileName.Name = "profileName";
+            profileName.Size = new Size(233, 33);
+            profileName.TabIndex = 11;
+            profileName.Text = "UserNameAsStored";
+            profileName.Click += profileName_Click;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Times New Roman", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label6.ForeColor = SystemColors.Window;
+            label6.Location = new Point(39, 557);
+            label6.Name = "label6";
+            label6.Size = new Size(130, 33);
+            label6.TabIndex = 8;
+            label6.Text = "UserName";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Times New Roman", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.ForeColor = SystemColors.Window;
+            label2.Location = new Point(39, 629);
+            label2.Name = "label2";
+            label2.Size = new Size(80, 33);
+            label2.TabIndex = 7;
+            label2.Text = "Email";
+            // 
+            // profileEmail
+            // 
+            profileEmail.AutoSize = true;
+            profileEmail.Font = new Font("Times New Roman", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            profileEmail.ForeColor = SystemColors.Window;
+            profileEmail.Location = new Point(191, 629);
+            profileEmail.Name = "profileEmail";
+            profileEmail.Size = new Size(233, 33);
+            profileEmail.TabIndex = 6;
+            profileEmail.Text = "UserNameAsStored";
+            // 
+            // profileUsername
+            // 
+            profileUsername.AutoSize = true;
+            profileUsername.Font = new Font("Times New Roman", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            profileUsername.ForeColor = SystemColors.Window;
+            profileUsername.Location = new Point(191, 557);
+            profileUsername.Name = "profileUsername";
+            profileUsername.Size = new Size(233, 33);
+            profileUsername.TabIndex = 5;
+            profileUsername.Text = "UserNameAsStored";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Times New Roman", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label3.Location = new Point(14, 496);
+            label3.Name = "label3";
+            label3.Size = new Size(0, 25);
+            label3.TabIndex = 4;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.BackgroundImage = (Image)resources.GetObject("pictureBox1.BackgroundImage");
+            pictureBox1.Location = new Point(95, 51);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(237, 228);
+            pictureBox1.TabIndex = 0;
+            pictureBox1.TabStop = false;
+            // 
+            // UsernameProfile
+            // 
+            UsernameProfile.AutoSize = true;
+            UsernameProfile.Font = new Font("Times New Roman", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            UsernameProfile.ForeColor = SystemColors.Window;
+            UsernameProfile.Location = new Point(114, 303);
+            UsernameProfile.Name = "UsernameProfile";
+            UsernameProfile.Size = new Size(198, 41);
+            UsernameProfile.TabIndex = 1;
+            UsernameProfile.Text = "User's Name";
+            // 
+            // quizPanel
+            // 
+            quizPanel.BackColor = SystemColors.WindowText;
+            quizPanel.Controls.Add(QuestionPanel);
+            quizPanel.Controls.Add(addingQuizPanel);
+            quizPanel.Controls.Add(addNewQuiz);
+            quizPanel.Controls.Add(clickQuizPanel);
+            quizPanel.Controls.Add(quizDisplay);
+            quizPanel.Location = new Point(471, 13);
+            quizPanel.Name = "quizPanel";
+            quizPanel.Size = new Size(873, 975);
+            quizPanel.TabIndex = 3;
+            // 
+            // addingQuizPanel
+            // 
+            addingQuizPanel.BackColor = SystemColors.WindowFrame;
+            addingQuizPanel.Controls.Add(addQuizButton);
+            addingQuizPanel.Controls.Add(textBoxTotalMark);
+            addingQuizPanel.Controls.Add(textBoxQuizName);
+            addingQuizPanel.Controls.Add(label9);
+            addingQuizPanel.Controls.Add(label8);
+            addingQuizPanel.Controls.Add(label7);
+            addingQuizPanel.Location = new Point(85, 82);
+            addingQuizPanel.Name = "addingQuizPanel";
+            addingQuizPanel.Size = new Size(723, 314);
+            addingQuizPanel.TabIndex = 4;
+            // 
+            // addQuizButton
+            // 
+            addQuizButton.Font = new Font("Times New Roman", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            addQuizButton.Location = new Point(557, 248);
+            addQuizButton.Name = "addQuizButton";
+            addQuizButton.Size = new Size(122, 44);
+            addQuizButton.TabIndex = 2;
+            addQuizButton.Text = "Add ";
+            addQuizButton.UseVisualStyleBackColor = true;
+            addQuizButton.Click += addQuizButton_Click_1;
+            // 
+            // textBoxTotalMark
+            // 
+            textBoxTotalMark.BorderStyle = BorderStyle.FixedSingle;
+            textBoxTotalMark.Font = new Font("Times New Roman", 12F);
+            textBoxTotalMark.Location = new Point(230, 178);
+            textBoxTotalMark.Name = "textBoxTotalMark";
+            textBoxTotalMark.Size = new Size(156, 35);
+            textBoxTotalMark.TabIndex = 4;
+            // 
+            // textBoxQuizName
+            // 
+            textBoxQuizName.BorderStyle = BorderStyle.FixedSingle;
+            textBoxQuizName.Font = new Font("Times New Roman", 12F);
+            textBoxQuizName.Location = new Point(230, 100);
+            textBoxQuizName.Name = "textBoxQuizName";
+            textBoxQuizName.Size = new Size(449, 35);
+            textBoxQuizName.TabIndex = 3;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Font = new Font("Times New Roman", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label9.ForeColor = SystemColors.Window;
+            label9.Location = new Point(20, 178);
+            label9.Name = "label9";
+            label9.Size = new Size(155, 32);
+            label9.TabIndex = 2;
+            label9.Text = "Total marks";
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new Font("Times New Roman", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label8.ForeColor = SystemColors.Window;
+            label8.Location = new Point(20, 97);
+            label8.Name = "label8";
+            label8.Size = new Size(132, 32);
+            label8.TabIndex = 1;
+            label8.Text = "Quiz Title";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Times New Roman", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label7.ForeColor = SystemColors.Window;
+            label7.Location = new Point(263, 24);
+            label7.Name = "label7";
+            label7.Size = new Size(196, 32);
+            label7.TabIndex = 0;
+            label7.Text = "Add Your Quiz";
+            // 
+            // addNewQuiz
+            // 
+            addNewQuiz.Font = new Font("Times New Roman", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            addNewQuiz.Location = new Point(726, 32);
+            addNewQuiz.Name = "addNewQuiz";
+            addNewQuiz.Size = new Size(122, 44);
+            addNewQuiz.TabIndex = 1;
+            addNewQuiz.Text = "Add ";
+            addNewQuiz.UseVisualStyleBackColor = true;
+            addNewQuiz.Click += addNewQuiz_Click;
+            // 
+            // clickQuizPanel
+            // 
+            clickQuizPanel.BackColor = SystemColors.WindowFrame;
+            clickQuizPanel.Controls.Add(quizID);
+            clickQuizPanel.Controls.Add(clickQuizPanelBack);
+            clickQuizPanel.Controls.Add(clickQuizPanelUser);
+            clickQuizPanel.Controls.Add(label10);
+            clickQuizPanel.Controls.Add(clickQuizPanelDelete);
+            clickQuizPanel.Controls.Add(clickQuizPanelView);
+            clickQuizPanel.Controls.Add(clickQuizPanelMarks);
+            clickQuizPanel.Controls.Add(label11);
+            clickQuizPanel.Controls.Add(clickQuizPanelName);
+            clickQuizPanel.Location = new Point(85, 84);
+            clickQuizPanel.Name = "clickQuizPanel";
+            clickQuizPanel.Size = new Size(723, 278);
+            clickQuizPanel.TabIndex = 5;
+            // 
+            // quizID
+            // 
+            quizID.AutoSize = true;
+            quizID.BackColor = SystemColors.Window;
+            quizID.Location = new Point(634, 41);
+            quizID.Name = "quizID";
+            quizID.Size = new Size(27, 25);
+            quizID.TabIndex = 8;
+            quizID.Text = "id";
+            quizID.UseWaitCursor = true;
+            // 
+            // clickQuizPanelBack
+            // 
+            clickQuizPanelBack.Font = new Font("Times New Roman", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            clickQuizPanelBack.Location = new Point(39, 194);
+            clickQuizPanelBack.Name = "clickQuizPanelBack";
+            clickQuizPanelBack.Size = new Size(136, 55);
+            clickQuizPanelBack.TabIndex = 7;
+            clickQuizPanelBack.Text = "Back";
+            clickQuizPanelBack.UseVisualStyleBackColor = true;
+            clickQuizPanelBack.Click += clickQuizPanelBack_Click;
+            // 
+            // clickQuizPanelUser
+            // 
+            clickQuizPanelUser.AutoSize = true;
+            clickQuizPanelUser.Font = new Font("Times New Roman", 16F, FontStyle.Bold);
+            clickQuizPanelUser.ForeColor = SystemColors.Window;
+            clickQuizPanelUser.Location = new Point(255, 128);
+            clickQuizPanelUser.Name = "clickQuizPanelUser";
+            clickQuizPanelUser.Size = new Size(165, 36);
+            clickQuizPanelUser.TabIndex = 6;
+            clickQuizPanelUser.Text = "User Name";
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Font = new Font("Times New Roman", 16F, FontStyle.Bold);
+            label10.ForeColor = SystemColors.Window;
+            label10.Location = new Point(39, 128);
+            label10.Name = "label10";
+            label10.Size = new Size(196, 36);
+            label10.TabIndex = 5;
+            label10.Text = "Created By : ";
+            // 
+            // clickQuizPanelDelete
+            // 
+            clickQuizPanelDelete.Font = new Font("Times New Roman", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            clickQuizPanelDelete.Location = new Point(557, 194);
+            clickQuizPanelDelete.Name = "clickQuizPanelDelete";
+            clickQuizPanelDelete.Size = new Size(136, 55);
+            clickQuizPanelDelete.TabIndex = 4;
+            clickQuizPanelDelete.Text = "Delete";
+            clickQuizPanelDelete.UseVisualStyleBackColor = true;
+            clickQuizPanelDelete.Click += clickQuizPanelDelete_Click;
+            // 
+            // clickQuizPanelView
+            // 
+            clickQuizPanelView.Font = new Font("Times New Roman", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            clickQuizPanelView.Location = new Point(195, 194);
+            clickQuizPanelView.Name = "clickQuizPanelView";
+            clickQuizPanelView.Size = new Size(136, 55);
+            clickQuizPanelView.TabIndex = 3;
+            clickQuizPanelView.Text = "View";
+            clickQuizPanelView.UseVisualStyleBackColor = true;
+            clickQuizPanelView.Click += clickQuizPanelView_Click;
+            // 
+            // clickQuizPanelMarks
+            // 
+            clickQuizPanelMarks.AutoSize = true;
+            clickQuizPanelMarks.Font = new Font("Times New Roman", 16F, FontStyle.Bold);
+            clickQuizPanelMarks.ForeColor = SystemColors.Window;
+            clickQuizPanelMarks.Location = new Point(246, 70);
+            clickQuizPanelMarks.Name = "clickQuizPanelMarks";
+            clickQuizPanelMarks.Size = new Size(47, 36);
+            clickQuizPanelMarks.TabIndex = 2;
+            clickQuizPanelMarks.Text = "10";
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Font = new Font("Times New Roman", 16F, FontStyle.Bold);
+            label11.ForeColor = SystemColors.Window;
+            label11.Location = new Point(39, 70);
+            label11.Name = "label11";
+            label11.Size = new Size(210, 36);
+            label11.TabIndex = 1;
+            label11.Text = "Total Marks : ";
+            // 
+            // clickQuizPanelName
+            // 
+            clickQuizPanelName.AutoSize = true;
+            clickQuizPanelName.Font = new Font("Times New Roman", 16F, FontStyle.Bold);
+            clickQuizPanelName.ForeColor = SystemColors.Window;
+            clickQuizPanelName.Location = new Point(279, 16);
+            clickQuizPanelName.Name = "clickQuizPanelName";
+            clickQuizPanelName.Size = new Size(160, 36);
+            clickQuizPanelName.TabIndex = 0;
+            clickQuizPanelName.Text = "QuizName";
+            clickQuizPanelName.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // quizDisplay
+            // 
+            quizDisplay.AutoScroll = true;
+            quizDisplay.BackColor = SystemColors.Window;
+            quizDisplay.Location = new Point(22, 143);
+            quizDisplay.Name = "quizDisplay";
+            quizDisplay.Size = new Size(826, 800);
+            quizDisplay.TabIndex = 1;
+            // 
             // MasterForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -731,7 +721,6 @@
             BackColor = SystemColors.Window;
             ClientSize = new Size(1600, 1000);
             Controls.Add(newQuestionForm);
-            Controls.Add(QuestionPanel);
             Controls.Add(quizPanel);
             Controls.Add(panelProfile);
             Controls.Add(navPanel);
@@ -743,15 +732,15 @@
             navPanel.ResumeLayout(false);
             panelProfile.ResumeLayout(false);
             panelProfile.PerformLayout();
+            QuestionPanel.ResumeLayout(false);
+            newQuestionForm.ResumeLayout(false);
+            newQuestionForm.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             quizPanel.ResumeLayout(false);
             addingQuizPanel.ResumeLayout(false);
             addingQuizPanel.PerformLayout();
             clickQuizPanel.ResumeLayout(false);
             clickQuizPanel.PerformLayout();
-            QuestionPanel.ResumeLayout(false);
-            newQuestionForm.ResumeLayout(false);
-            newQuestionForm.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -773,7 +762,6 @@
         private Label label13;
         private Label profileName;
         private Panel quizPanel;
-        private Panel leadboardPanel;
         private Panel quizDisplay;
         private Button addNewQuiz;
         private Panel addingQuizPanel;
