@@ -122,7 +122,7 @@ namespace QuizManagementSystem
 
             if (ml.SignUp(name, email, username, password))
             {
-                MessageBox.Show("Login successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show("Login successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Master userDetail = new Master();
                 userDetail = ml.GetUser(username);
 
@@ -145,7 +145,7 @@ namespace QuizManagementSystem
 
             if (pl.SignUp(name, email, username, password))
             {
-                MessageBox.Show("Login successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show("Login successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Player userDetail = new Player();
                 userDetail = pl.GetPlayer(username);
 

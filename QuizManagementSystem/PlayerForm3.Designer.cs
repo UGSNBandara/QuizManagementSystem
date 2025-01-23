@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PlayerForm3));
             ProfilePanel = new Panel();
+            label4 = new Label();
+            profileScore = new Label();
             label13 = new Label();
             profileName = new Label();
             label6 = new Label();
@@ -64,8 +66,6 @@
             ClickQuizPanelName = new Label();
             button5 = new Button();
             QuizShowPanel = new Panel();
-            label4 = new Label();
-            profileScore = new Label();
             ProfilePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             QuestionPanel.SuspendLayout();
@@ -91,6 +91,29 @@
             ProfilePanel.Size = new Size(457, 898);
             ProfilePanel.TabIndex = 0;
             ProfilePanel.Paint += ProfilePanel_Paint;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Times New Roman", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label4.ForeColor = SystemColors.Window;
+            label4.Location = new Point(36, 728);
+            label4.Name = "label4";
+            label4.Size = new Size(78, 33);
+            label4.TabIndex = 21;
+            label4.Text = "Score";
+            label4.Click += label4_Click;
+            // 
+            // profileScore
+            // 
+            profileScore.AutoSize = true;
+            profileScore.Font = new Font("Times New Roman", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            profileScore.ForeColor = SystemColors.Window;
+            profileScore.Location = new Point(188, 728);
+            profileScore.Name = "profileScore";
+            profileScore.Size = new Size(233, 33);
+            profileScore.TabIndex = 20;
+            profileScore.Text = "UserNameAsStored";
             // 
             // label13
             // 
@@ -190,7 +213,7 @@
             QuestionPanel.Controls.Add(AnswerA);
             QuestionPanel.Controls.Add(QuestionNumber);
             QuestionPanel.Controls.Add(Question);
-            QuestionPanel.Location = new Point(280, 23);
+            QuestionPanel.Location = new Point(12, 12);
             QuestionPanel.Name = "QuestionPanel";
             QuestionPanel.Size = new Size(1111, 398);
             QuestionPanel.TabIndex = 6;
@@ -345,6 +368,7 @@
             button4.TabIndex = 4;
             button4.Text = "LeadBoard";
             button4.UseVisualStyleBackColor = false;
+            button4.Click += button4_Click;
             // 
             // QuizPanel
             // 
@@ -482,29 +506,6 @@
             QuizShowPanel.Name = "QuizShowPanel";
             QuizShowPanel.Size = new Size(844, 786);
             QuizShowPanel.TabIndex = 0;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Times New Roman", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label4.ForeColor = SystemColors.Window;
-            label4.Location = new Point(36, 728);
-            label4.Name = "label4";
-            label4.Size = new Size(78, 33);
-            label4.TabIndex = 21;
-            label4.Text = "Score";
-            label4.Click += label4_Click;
-            // 
-            // profileScore
-            // 
-            profileScore.AutoSize = true;
-            profileScore.Font = new Font("Times New Roman", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            profileScore.ForeColor = SystemColors.Window;
-            profileScore.Location = new Point(188, 728);
-            profileScore.Name = "profileScore";
-            profileScore.Size = new Size(233, 33);
-            profileScore.TabIndex = 20;
-            profileScore.Text = "UserNameAsStored";
             // 
             // PlayerForm3
             // 

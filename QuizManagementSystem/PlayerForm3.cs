@@ -13,7 +13,10 @@ namespace QuizManagementSystem
     public partial class PlayerForm3 : Form
     {
         QuizManager quizManager = new QuizManager();
+        PlayerLogin playerLogin = new PlayerLogin();
         Player userDetails = new Player();
+
+        bool leadboard = false;
 
         private int currentQuestionIndex = 0;
         private List<Question> playerQuestions;
@@ -25,11 +28,12 @@ namespace QuizManagementSystem
             InitializeComponent();
             ProfilePanel.Visible = true;
             ClickQuizPanel.Visible = false;
-            QuizPanel.Visible = false;
+            QuizPanel.Visible = true;
             QuizID.Visible = false;
             QuestionPanel.Visible = false;
             userDetails = p;
             updateProfileData();
+            updateSignUpPlayer();
         }
 
         private void updateProfileData()
@@ -45,6 +49,12 @@ namespace QuizManagementSystem
             sf f1 = new sf();
             f1.Show();
             this.Hide();
+        }
+
+        //to add sigup paler in current DB since not connected DB yet
+        private void updateSignUpPlayer()
+        {
+            playerLogin.AddPlayer(userDetails.Username, userDetails.Name, userDetails.Score, userDetails.Email, userDetails.Password);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -84,6 +94,39 @@ namespace QuizManagementSystem
             }
         }
 
+        public void LoadPlayersToLeadBoard()
+        {
+            QuizShowPanel.Controls.Clear();
+
+            IEnumerable<Player> players = playerLogin.GetPlayersInOder();
+
+            const int buttonWidth = 750;
+            const int buttonHeight = 100;
+            int yOffset = 20;
+
+            List<Button> quizButtons = new List<Button>();
+            int rank = 0; 
+
+            foreach (Player player in players)
+            {
+                Button quizButton = new Button
+                {
+                    Text = $"{player.Username}  -  {player.Score}  -  {rank + 1})",
+                    Size = new Size(buttonWidth, buttonHeight),
+                    Location = new Point(20, yOffset),
+                    BackColor = Color.RoyalBlue, 
+                    ForeColor = Color.White,
+                    Font = new Font("Times New Roman", 14)
+                };
+
+                quizButtons.Add(quizButton);
+                yOffset += 150;
+                rank++;
+            }
+
+            QuizShowPanel.Controls.AddRange(quizButtons.ToArray());
+        }
+
 
 
         private void StartQuiz(int quizID)
@@ -100,6 +143,7 @@ namespace QuizManagementSystem
             if (currentQuestionIndex >= playerQuestions.Count)
             {
                 ShowResult();
+                playerLogin.UpdateScore(userDetails.Username, playerScore);
                 return;
             }
 
@@ -179,7 +223,14 @@ namespace QuizManagementSystem
 
         private void button5_Click(object sender, EventArgs e)
         {
-            LoadQuizzesToPanel();
+            if (leadboard)
+            {
+                LoadPlayersToLeadBoard();
+            }
+            else
+            {
+                LoadQuizzesToPanel();
+            }
         }
 
         private void AnswerA_CheckedChanged(object sender, EventArgs e)
@@ -223,6 +274,17 @@ namespace QuizManagementSystem
         private void label4_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            LoadPlayersToLeadBoard();
+            leadboard = true;
         }
     }
 }

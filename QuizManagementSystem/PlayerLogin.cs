@@ -6,6 +6,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using static Azure.Core.HttpHeader;
+using static QuizManagementSystem.BinarySearchTreeForPlayer;
 using static System.Formats.Asn1.AsnWriter;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
@@ -74,6 +75,17 @@ namespace QuizManagementSystem
 
             return false;
         }
+
+        public void UpdateScore(string username, int marks)
+        {
+            PlayerDS.UpdateScore(username, marks);
+        }
+
+
+        public IEnumerable<Player> GetPlayersInOder()
+        {
+            return PlayerDS.ReturnPlayersInOder();
+        }
     }
 
     public class BinarySearchTreeForPlayer
@@ -127,6 +139,30 @@ namespace QuizManagementSystem
             return node;
         }
 
+        public void UpdateScore(string username, int marks)
+        {
+            UpdateScore(Root, username, marks);
+        }
+
+        public void UpdateScore(Node node, string username, int marks)
+        {
+            int comparison = username.CompareTo(node.Player.Username);
+
+            if (comparison == 0)
+            {
+                node.Player.Score += marks;
+            }
+            else if (comparison < 0)
+            {
+                UpdateScore(node.Left, username, marks);
+            }
+            else
+            {
+                UpdateScore(node.Right, username, marks);
+            }
+        }
+
+
         private void UpdateLinkedList(Node newNode)
         {
             if (head == null)
@@ -138,7 +174,7 @@ namespace QuizManagementSystem
             Node current = head;
             Node prev = null;
 
-            while (current != null && current.Player.Score < newNode.Player.Score)
+            while (current != null && current.Player.Score > newNode.Player.Score)
             {
                 prev = current;
                 current = current.Next;
@@ -233,6 +269,66 @@ namespace QuizManagementSystem
             while (node.Left != null) node = node.Left;
             return node;
         }
+
+        public IEnumerable<Player> ReturnPlayersInOder()
+        {
+            Sort();
+            Node current = head;
+            while (current != null)
+            {
+                yield return current.Player;
+                current = current.Next;
+            }
+        }
+
+        //sort in decreasing oder
+
+        public void Sort()
+        {
+            if (head == null || head.Next == null)
+            {
+                return;
+            }
+
+            bool swapped = false;
+
+            do
+            {
+                swapped = false;
+                Node current = head;
+                Node temp = null;
+
+                while (current != null && current.Next != null)
+                {
+                    if (current.Player.Score < current.Next.Player.Score)
+                    {
+                        if (current.Prev == null)
+                        {
+                            temp = current.Next;
+                            current.Next = current.Next.Next;
+                            temp.Next = current;
+                            temp.Prev = null;
+                            current.Prev = temp;
+                            head = temp;
+                        }
+                        else
+                        {
+                            temp = current.Next;
+                            current.Next = temp.Next;
+                            temp.Next = current;
+                            temp.Prev = current.Prev;
+                            current.Prev.Next = temp;
+                            current.Prev = temp;
+
+                        }
+                        swapped = true;
+                    }
+
+                    current = current.Next;
+                }
+            } while (swapped);
+        }
+
     }
 
     public class Player
