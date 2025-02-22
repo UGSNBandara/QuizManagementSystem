@@ -145,7 +145,7 @@ namespace QuizManagementSystem
             {
                 playerScore = playerScore * totalScoreOfCurrentQuiz / playerQuestions.Count;
                 ShowResult();
-                playerLogin.UpdateScore(userDetails.Username, playerScore);
+                playerLogin.UpdateScore(userDetails.Username, playerScore+userDetails.Score);
                 updateProfileData();
                 return;
             }

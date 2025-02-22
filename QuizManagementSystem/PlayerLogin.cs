@@ -84,10 +84,10 @@ namespace QuizManagementSystem
             return false;
         }
 
-        public void UpdateScore(string username, double marks)
+        public void UpdateScore(string username, double updatedMarks)
         {
-            plMongo.UpdateScore(username, marks);
-            PlayerDS.UpdateScore(username, marks);
+            PlayerDS.UpdateScore(username, updatedMarks);
+            plMongo.UpdateScore(username, updatedMarks);
         }
 
 
@@ -153,13 +153,13 @@ namespace QuizManagementSystem
             UpdateScore(Root, username, marks);
         }
 
-        public void UpdateScore(Node node, string username, double marks)
+        public void  UpdateScore(Node node, string username, double marks)
         {
             int comparison = username.CompareTo(node.Player.Username);
 
             if (comparison == 0)
             {
-                node.Player.Score += marks;
+                node.Player.Score = marks;
             }
             else if (comparison < 0)
             {
