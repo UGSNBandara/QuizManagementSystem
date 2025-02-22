@@ -16,19 +16,26 @@ namespace QuizManagementSystem
     public class PlayerLogin
     {
         private BinarySearchTreeForPlayer PlayerDS;
-
+        PlayerMongo plMongo = new PlayerMongo();
         public PlayerLogin()
         {
             PlayerDS = new BinarySearchTreeForPlayer();
-            AddPlayer("player", "Player", 100, "player@email.com", "player123");
-            AddPlayer("player2", "Player2", 50, "player2@email.com", "player123");
-            AddPlayer("player3", "Player3", 60, "player3@email.com", "player123");
-            AddPlayer("player4", "Player4", 40, "player4@email.com", "player123");
+            PlayerMongo plMongo = new PlayerMongo();
+            
+            List<Player> players = new List<Player>();
+            players = plMongo.GetAllPlayers();
+
+            foreach (Player x in players)
+            {
+                PlayerDS.AddPlayer(x);
+            }
+            
         }
 
         public void AddPlayer(string username, string name, double score, string email, string password)
         {
             Player newPlayer = new Player(username, name, score, email, password);
+            plMongo.AddPlayer(newPlayer);
             PlayerDS.AddPlayer(newPlayer);
         }
 
@@ -43,6 +50,7 @@ namespace QuizManagementSystem
             {
                 Player newPlayer = new Player(username, name, 0, email, password);
                 PlayerDS.AddPlayer(newPlayer);
+                plMongo.AddPlayer(newPlayer);
                 return true;
             }
         }
@@ -78,6 +86,7 @@ namespace QuizManagementSystem
 
         public void UpdateScore(string username, double marks)
         {
+            plMongo.UpdateScore(username, marks);
             PlayerDS.UpdateScore(username, marks);
         }
 

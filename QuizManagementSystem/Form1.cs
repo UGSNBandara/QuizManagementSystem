@@ -79,11 +79,7 @@ namespace QuizManagementSystem
             if (pl.CheckCredentials(playerUsernameInput.Text, playerPasswordInput.Text))
             {
                 Player userDetail = new Player();
-                userDetail = pl.GetPlayer(playerUsernameInput.Text);
-
-
-
-                PlayerForm3 pf = new PlayerForm3(userDetail);
+                PlayerForm3 pf = new PlayerForm3(playerUsernameInput.Text);
                 pf.Show();
                 this.Hide();
             }
@@ -145,11 +141,7 @@ namespace QuizManagementSystem
 
             if (pl.SignUp(name, email, username, password))
             {
-                //MessageBox.Show("Login successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                Player userDetail = new Player();
-                userDetail = pl.GetPlayer(username);
-
-                PlayerForm3 pf = new PlayerForm3(userDetail);
+                PlayerForm3 pf = new PlayerForm3(username);
                 pf.Show();
                 this.Hide();
             }

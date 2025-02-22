@@ -9,13 +9,48 @@ namespace QuizManagementSystem
         public BinarySearchTree quizzes = new BinarySearchTree();
 
         public QuizManager()
-        {
+        { 
             AddQuizStart(1, "Math Quiz", 100, "Dulitha");
             AddQuizStart(2, "Science Quiz", 80, "Sulitha");
+            AddQuizStart(3, "History Quiz", 90, "Anusha");
+            AddQuizStart(4, "Geography Quiz", 85, "Kavindu");
 
-            AddQuestion(1, "What is 2+2?", "3", "4", "5", "6", 'B');
-            AddQuestion(1, "What is 10/2?", "2", "5", "10", "20", 'B');
-            AddQuestion(2, "What is H2O?", "Water", "Hydrogen", "Oxygen", "Carbon Dioxide", 'A');
+            AddQuestion(4, "What is the capital of Sri Lanka?", "Colombo", "Kandy", "Galle", "Jaffna", 'A');
+            AddQuestion(4, "What is the capital of India?", "Mumbai", "Delhi", "Kolkata", "Chennai", 'B');
+            AddQuestion(4, "What is the capital of Australia?", "Sydney", "Melbourne", "Canberra", "Brisbane", 'C');
+
+            AddQuestion(1, "What is 3+5?", "7", "8", "9", "6", 'B');
+            AddQuestion(1, "What is 15/3?", "3", "4", "5", "6", 'C');
+            AddQuestion(1, "What is the square root of 49?", "6", "7", "8", "9", 'B');
+            AddQuestion(1, "What is 12*3?", "36", "32", "48", "40", 'A');
+            AddQuestion(1, "What is 100-25?", "80", "75", "70", "65", 'B');
+            AddQuestion(1, "What is 9+10?", "19", "21", "20", "18", 'A');
+            AddQuestion(1, "What is 81/9?", "7", "8", "9", "10", 'C');
+            AddQuestion(1, "What is the cube of 2?", "6", "8", "9", "4", 'B');
+            AddQuestion(1, "What is 16*2?", "30", "28", "32", "34", 'C');
+            AddQuestion(1, "What is 99+1?", "100", "101", "99", "98", 'A');
+
+            AddQuestion(2, "What is the chemical symbol for gold?", "Au", "Ag", "Fe", "Cu", 'A');
+            AddQuestion(2, "Which planet is known as the Red Planet?", "Venus", "Mars", "Jupiter", "Saturn", 'B');
+            AddQuestion(2, "What is the powerhouse of the cell?", "Nucleus", "Ribosome", "Mitochondria", "Golgi Apparatus", 'C');
+            AddQuestion(2, "What is the speed of light?", "300,000 km/s", "150,000 km/s", "500,000 km/s", "100,000 km/s", 'A');
+            AddQuestion(2, "What is HCl commonly known as?", "Hydrochloric Acid", "Sulfuric Acid", "Nitric Acid", "Acetic Acid", 'A');
+            AddQuestion(2, "Which gas is most abundant in Earth's atmosphere?", "Oxygen", "Nitrogen", "Carbon Dioxide", "Hydrogen", 'B');
+            AddQuestion(2, "Who developed the theory of relativity?", "Isaac Newton", "Albert Einstein", "Galileo Galilei", "Nikola Tesla", 'B');
+            AddQuestion(2, "What is the largest organ in the human body?", "Heart", "Skin", "Liver", "Brain", 'B');
+            AddQuestion(2, "Which element has the atomic number 1?", "Helium", "Oxygen", "Hydrogen", "Nitrogen", 'C');
+            AddQuestion(2, "What is the boiling point of water?", "0°C", "50°C", "100°C", "200°C", 'C');
+
+            AddQuestion(3, "Who was the first President of the USA?", "George Washington", "Abraham Lincoln", "Thomas Jefferson", "John Adams", 'A');
+            AddQuestion(3, "When did World War II end?", "1945", "1940", "1950", "1939", 'A');
+            AddQuestion(3, "Who discovered America?", "Christopher Columbus", "Vasco da Gama", "Marco Polo", "Ferdinand Magellan", 'A');
+            AddQuestion(3, "What was the name of the ship on which the Pilgrims traveled to America?", "Mayflower", "Santa Maria", "Victoria", "Endeavour", 'A');
+            AddQuestion(3, "Who was the first Emperor of Rome?", "Julius Caesar", "Augustus", "Nero", "Tiberius", 'B');
+            AddQuestion(3, "Which country built the Great Wall?", "China", "Japan", "India", "Korea", 'A');
+            AddQuestion(3, "What was the ancient Egyptian writing system called?", "Hieroglyphics", "Cuneiform", "Runes", "Latin", 'A');
+            AddQuestion(3, "Who wrote the Declaration of Independence?", "George Washington", "Benjamin Franklin", "Thomas Jefferson", "John Adams", 'C');
+            AddQuestion(3, "What year did the Titanic sink?", "1910", "1912", "1914", "1918", 'B');
+            AddQuestion(3, "What was the capital of the Byzantine Empire?", "Rome", "Constantinople", "Athens", "Carthage", 'B');
         }
 
 

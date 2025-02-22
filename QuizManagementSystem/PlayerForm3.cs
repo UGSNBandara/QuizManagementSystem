@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Driver.Core.Operations.ElementNameValidators;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,7 @@ namespace QuizManagementSystem
         QuizManager quizManager = new QuizManager();
         PlayerLogin playerLogin = new PlayerLogin();
         Player userDetails = new Player();
+        private string UserName;
 
         bool leadboard = false;
 
@@ -24,21 +26,23 @@ namespace QuizManagementSystem
         private int totalScoreOfCurrentQuiz = 0;
 
 
-        public PlayerForm3(Player p)
+        public PlayerForm3(string username)
         {
+            UserName = username ?? string.Empty;
             InitializeComponent();
             ProfilePanel.Visible = true;
             ClickQuizPanel.Visible = false;
             QuizPanel.Visible = true;
             QuizID.Visible = false;
             QuestionPanel.Visible = false;
-            userDetails = p;
             updateProfileData();
-            updateSignUpPlayer();
+            
         }
+
 
         private void updateProfileData()
         {
+            userDetails = playerLogin.GetPlayer(UserName);
             UsernameProfile.Text = userDetails.Username;
             profileName.Text = userDetails.Name;
             profileEmail.Text = userDetails.Email;
@@ -50,12 +54,6 @@ namespace QuizManagementSystem
             sf f1 = new sf();
             f1.Show();
             this.Hide();
-        }
-
-        //to add sigup paler in current DB since not connected DB yet
-        private void updateSignUpPlayer()
-        {
-            playerLogin.AddPlayer(userDetails.Username, userDetails.Name, userDetails.Score, userDetails.Email, userDetails.Password);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -108,7 +106,7 @@ namespace QuizManagementSystem
             int yOffset = 20;
 
             List<Button> quizButtons = new List<Button>();
-            int rank = 0; 
+            int rank = 0;
 
             foreach (Player player in players)
             {
@@ -117,7 +115,7 @@ namespace QuizManagementSystem
                     Text = $"{rank + 1}      |      {player.Score}      |     {player.Username}",
                     Size = new Size(buttonWidth, buttonHeight),
                     Location = new Point(20, yOffset),
-                    BackColor = Color.RoyalBlue, 
+                    BackColor = Color.RoyalBlue,
                     ForeColor = Color.White,
                     Font = new Font("Times New Roman", 14)
                 };
@@ -148,6 +146,7 @@ namespace QuizManagementSystem
                 playerScore = playerScore * totalScoreOfCurrentQuiz / playerQuestions.Count;
                 ShowResult();
                 playerLogin.UpdateScore(userDetails.Username, playerScore);
+                updateProfileData();
                 return;
             }
 
@@ -204,12 +203,14 @@ namespace QuizManagementSystem
             MessageBox.Show($"You have scored {playerScore} out of {totalScoreOfCurrentQuiz}");
             QuestionPanel.Visible = false;
             QuizPanel.Visible = true;
+            ProfilePanel.Visible = true;
             return;
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             QuizPanel.Visible = true;
+            leadboard = false;
             LoadQuizzesToPanel();
         }
 
@@ -223,6 +224,8 @@ namespace QuizManagementSystem
             QuestionPanel.Visible = true;
             ClickQuizPanel.Visible = false;
             QuizPanel.Visible = false;
+            ProfilePanel.Visible = false;
+            //PlayerForm3.BackColor = System.Drawing.Color.Blue;
             StartQuiz(int.Parse(QuizID.Text));
         }
 
@@ -290,6 +293,11 @@ namespace QuizManagementSystem
         {
             LoadPlayersToLeadBoard();
             leadboard = true;
+        }
+
+        private void PlayerForm3_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

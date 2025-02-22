@@ -30,6 +30,15 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PlayerForm3));
             ProfilePanel = new Panel();
+            QuestionPanel = new Panel();
+            button8 = new Button();
+            button7 = new Button();
+            AnswerD = new CheckBox();
+            AnswerC = new CheckBox();
+            AnswerB = new CheckBox();
+            AnswerA = new CheckBox();
+            QuestionNumber = new Label();
+            Question = new Label();
             label4 = new Label();
             profileScore = new Label();
             label13 = new Label();
@@ -40,16 +49,6 @@
             profileUsername = new Label();
             UsernameProfile = new Label();
             pictureBox1 = new PictureBox();
-            QuestionPanel = new Panel();
-            button10 = new Button();
-            button8 = new Button();
-            button7 = new Button();
-            AnswerD = new CheckBox();
-            AnswerC = new CheckBox();
-            AnswerB = new CheckBox();
-            AnswerA = new CheckBox();
-            QuestionNumber = new Label();
-            Question = new Label();
             button1 = new Button();
             button2 = new Button();
             button3 = new Button();
@@ -67,8 +66,8 @@
             button5 = new Button();
             QuizShowPanel = new Panel();
             ProfilePanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             QuestionPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             QuizPanel.SuspendLayout();
             ClickQuizPanel.SuspendLayout();
             SuspendLayout();
@@ -91,6 +90,112 @@
             ProfilePanel.Size = new Size(457, 898);
             ProfilePanel.TabIndex = 0;
             ProfilePanel.Paint += ProfilePanel_Paint;
+            // 
+            // QuestionPanel
+            // 
+            QuestionPanel.BackColor = SystemColors.Window;
+            QuestionPanel.Controls.Add(button8);
+            QuestionPanel.Controls.Add(button7);
+            QuestionPanel.Controls.Add(AnswerD);
+            QuestionPanel.Controls.Add(AnswerC);
+            QuestionPanel.Controls.Add(AnswerB);
+            QuestionPanel.Controls.Add(AnswerA);
+            QuestionPanel.Controls.Add(QuestionNumber);
+            QuestionPanel.Controls.Add(Question);
+            QuestionPanel.Location = new Point(273, 211);
+            QuestionPanel.Name = "QuestionPanel";
+            QuestionPanel.Size = new Size(1072, 411);
+            QuestionPanel.TabIndex = 6;
+            // 
+            // button8
+            // 
+            button8.Font = new Font("Times New Roman", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button8.Location = new Point(803, 310);
+            button8.Name = "button8";
+            button8.Size = new Size(130, 41);
+            button8.TabIndex = 15;
+            button8.Text = "Submit";
+            button8.UseVisualStyleBackColor = true;
+            button8.Click += button8_Click;
+            // 
+            // button7
+            // 
+            button7.Font = new Font("Times New Roman", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button7.Location = new Point(88, 310);
+            button7.Name = "button7";
+            button7.Size = new Size(91, 41);
+            button7.TabIndex = 14;
+            button7.Text = "Skip";
+            button7.UseVisualStyleBackColor = true;
+            button7.Click += button7_Click;
+            // 
+            // AnswerD
+            // 
+            AnswerD.AutoSize = true;
+            AnswerD.Font = new Font("Times New Roman", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            AnswerD.Location = new Point(783, 200);
+            AnswerD.Name = "AnswerD";
+            AnswerD.Size = new Size(150, 36);
+            AnswerD.TabIndex = 13;
+            AnswerD.Text = "AnswerD";
+            AnswerD.UseVisualStyleBackColor = true;
+            AnswerD.CheckedChanged += AnswerD_CheckedChanged;
+            // 
+            // AnswerC
+            // 
+            AnswerC.AutoSize = true;
+            AnswerC.Font = new Font("Times New Roman", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            AnswerC.Location = new Point(783, 146);
+            AnswerC.Name = "AnswerC";
+            AnswerC.Size = new Size(150, 36);
+            AnswerC.TabIndex = 12;
+            AnswerC.Text = "AnswerC";
+            AnswerC.UseVisualStyleBackColor = true;
+            AnswerC.CheckedChanged += AnswerC_CheckedChanged;
+            // 
+            // AnswerB
+            // 
+            AnswerB.AutoSize = true;
+            AnswerB.Font = new Font("Times New Roman", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            AnswerB.Location = new Point(88, 195);
+            AnswerB.Name = "AnswerB";
+            AnswerB.Size = new Size(150, 36);
+            AnswerB.TabIndex = 11;
+            AnswerB.Text = "AnswerB";
+            AnswerB.UseVisualStyleBackColor = true;
+            AnswerB.CheckedChanged += AnswerB_CheckedChanged;
+            // 
+            // AnswerA
+            // 
+            AnswerA.AutoSize = true;
+            AnswerA.Font = new Font("Times New Roman", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            AnswerA.Location = new Point(88, 138);
+            AnswerA.Name = "AnswerA";
+            AnswerA.Size = new Size(150, 36);
+            AnswerA.TabIndex = 10;
+            AnswerA.Text = "AnswerA";
+            AnswerA.UseVisualStyleBackColor = true;
+            AnswerA.CheckedChanged += AnswerA_CheckedChanged;
+            // 
+            // QuestionNumber
+            // 
+            QuestionNumber.AutoSize = true;
+            QuestionNumber.Font = new Font("Times New Roman", 14F, FontStyle.Bold);
+            QuestionNumber.Location = new Point(88, 59);
+            QuestionNumber.Name = "QuestionNumber";
+            QuestionNumber.Size = new Size(42, 32);
+            QuestionNumber.TabIndex = 1;
+            QuestionNumber.Text = "##";
+            // 
+            // Question
+            // 
+            Question.AutoSize = true;
+            Question.Font = new Font("Times New Roman", 14F, FontStyle.Bold);
+            Question.Location = new Point(130, 59);
+            Question.Name = "Question";
+            Question.Size = new Size(122, 32);
+            Question.TabIndex = 0;
+            Question.Text = "Question";
             // 
             // label4
             // 
@@ -200,123 +305,6 @@
             pictureBox1.Size = new Size(237, 228);
             pictureBox1.TabIndex = 1;
             pictureBox1.TabStop = false;
-            // 
-            // QuestionPanel
-            // 
-            QuestionPanel.BackColor = SystemColors.Window;
-            QuestionPanel.Controls.Add(button10);
-            QuestionPanel.Controls.Add(button8);
-            QuestionPanel.Controls.Add(button7);
-            QuestionPanel.Controls.Add(AnswerD);
-            QuestionPanel.Controls.Add(AnswerC);
-            QuestionPanel.Controls.Add(AnswerB);
-            QuestionPanel.Controls.Add(AnswerA);
-            QuestionPanel.Controls.Add(QuestionNumber);
-            QuestionPanel.Controls.Add(Question);
-            QuestionPanel.Location = new Point(12, 12);
-            QuestionPanel.Name = "QuestionPanel";
-            QuestionPanel.Size = new Size(1111, 398);
-            QuestionPanel.TabIndex = 6;
-            // 
-            // button10
-            // 
-            button10.Font = new Font("Times New Roman", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button10.Location = new Point(757, 328);
-            button10.Name = "button10";
-            button10.Size = new Size(91, 41);
-            button10.TabIndex = 16;
-            button10.Text = "Ok";
-            button10.UseVisualStyleBackColor = true;
-            // 
-            // button8
-            // 
-            button8.Font = new Font("Times New Roman", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button8.Location = new Point(864, 328);
-            button8.Name = "button8";
-            button8.Size = new Size(130, 41);
-            button8.TabIndex = 15;
-            button8.Text = "Submit";
-            button8.UseVisualStyleBackColor = true;
-            button8.Click += button8_Click;
-            // 
-            // button7
-            // 
-            button7.Font = new Font("Times New Roman", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button7.Location = new Point(642, 328);
-            button7.Name = "button7";
-            button7.Size = new Size(91, 41);
-            button7.TabIndex = 14;
-            button7.Text = "Skip";
-            button7.UseVisualStyleBackColor = true;
-            button7.Click += button7_Click;
-            // 
-            // AnswerD
-            // 
-            AnswerD.AutoSize = true;
-            AnswerD.Font = new Font("Times New Roman", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            AnswerD.Location = new Point(27, 272);
-            AnswerD.Name = "AnswerD";
-            AnswerD.Size = new Size(150, 36);
-            AnswerD.TabIndex = 13;
-            AnswerD.Text = "AnswerD";
-            AnswerD.UseVisualStyleBackColor = true;
-            AnswerD.CheckedChanged += AnswerD_CheckedChanged;
-            // 
-            // AnswerC
-            // 
-            AnswerC.AutoSize = true;
-            AnswerC.Font = new Font("Times New Roman", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            AnswerC.Location = new Point(27, 218);
-            AnswerC.Name = "AnswerC";
-            AnswerC.Size = new Size(150, 36);
-            AnswerC.TabIndex = 12;
-            AnswerC.Text = "AnswerC";
-            AnswerC.UseVisualStyleBackColor = true;
-            AnswerC.CheckedChanged += AnswerC_CheckedChanged;
-            // 
-            // AnswerB
-            // 
-            AnswerB.AutoSize = true;
-            AnswerB.Font = new Font("Times New Roman", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            AnswerB.Location = new Point(27, 164);
-            AnswerB.Name = "AnswerB";
-            AnswerB.Size = new Size(150, 36);
-            AnswerB.TabIndex = 11;
-            AnswerB.Text = "AnswerB";
-            AnswerB.UseVisualStyleBackColor = true;
-            AnswerB.CheckedChanged += AnswerB_CheckedChanged;
-            // 
-            // AnswerA
-            // 
-            AnswerA.AutoSize = true;
-            AnswerA.Font = new Font("Times New Roman", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            AnswerA.Location = new Point(27, 107);
-            AnswerA.Name = "AnswerA";
-            AnswerA.Size = new Size(150, 36);
-            AnswerA.TabIndex = 10;
-            AnswerA.Text = "AnswerA";
-            AnswerA.UseVisualStyleBackColor = true;
-            AnswerA.CheckedChanged += AnswerA_CheckedChanged;
-            // 
-            // QuestionNumber
-            // 
-            QuestionNumber.AutoSize = true;
-            QuestionNumber.Font = new Font("Times New Roman", 14F, FontStyle.Bold);
-            QuestionNumber.Location = new Point(27, 28);
-            QuestionNumber.Name = "QuestionNumber";
-            QuestionNumber.Size = new Size(42, 32);
-            QuestionNumber.TabIndex = 1;
-            QuestionNumber.Text = "##";
-            // 
-            // Question
-            // 
-            Question.AutoSize = true;
-            Question.Font = new Font("Times New Roman", 14F, FontStyle.Bold);
-            Question.Location = new Point(69, 28);
-            Question.Name = "Question";
-            Question.Size = new Size(122, 32);
-            Question.TabIndex = 0;
-            Question.Text = "Question";
             // 
             // button1
             // 
@@ -511,6 +499,7 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.Control;
             ClientSize = new Size(1578, 944);
             Controls.Add(QuestionPanel);
             Controls.Add(QuizPanel);
@@ -523,11 +512,12 @@
             Name = "PlayerForm3";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "PlayerForm2";
+            Load += PlayerForm3_Load;
             ProfilePanel.ResumeLayout(false);
             ProfilePanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             QuestionPanel.ResumeLayout(false);
             QuestionPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             QuizPanel.ResumeLayout(false);
             ClickQuizPanel.ResumeLayout(false);
             ClickQuizPanel.PerformLayout();
@@ -567,7 +557,6 @@
         private CheckBox AnswerC;
         private CheckBox AnswerB;
         private CheckBox AnswerA;
-        private Button button10;
         private PictureBox pictureBox1;
         private Label label13;
         private Label profileName;
