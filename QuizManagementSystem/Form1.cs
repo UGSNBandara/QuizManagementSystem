@@ -59,10 +59,7 @@ namespace QuizManagementSystem
 
             if (ml.CheckCredentials(masterUsernameInput.Text, masterPasswordInput.Text))
             {
-                Master userDetail = new Master();
-                userDetail = ml.GetUser(masterUsernameInput.Text);
-
-                MasterForm mf = new MasterForm(userDetail);
+                MasterForm mf = new MasterForm(masterUsernameInput.Text);
                 mf.Show();
                 this.Hide();
             }
@@ -119,10 +116,7 @@ namespace QuizManagementSystem
             if (ml.SignUp(name, email, username, password))
             {
                 //MessageBox.Show("Login successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                Master userDetail = new Master();
-                userDetail = ml.GetUser(username);
-
-                MasterForm mf = new MasterForm(userDetail);
+                MasterForm mf = new MasterForm(username);
                 mf.Show();
                 this.Hide();
             }

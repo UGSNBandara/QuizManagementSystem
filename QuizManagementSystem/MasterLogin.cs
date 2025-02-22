@@ -6,13 +6,20 @@ namespace QuizManagementSystem
     public class MasterLogin
     {
         private BinarySearchTreeForMaster MasterDS;
+        private MasterMongo masterMongo;
 
         public MasterLogin()
         {
             MasterDS = new BinarySearchTreeForMaster();
-            SignUp("Admin", "admin@example.com", "admin", "admin123");
-            SignUp("Admin2", "admin2@example.com", "admin2", "admin123");
-            SignUp("Admin3", "admin3@example.com", "admin3", "admin123");
+            masterMongo = new MasterMongo();
+            List <Master> masters = new List<Master>();
+            masters = masterMongo.GetAllPlayers();
+
+            foreach (Master x in masters)
+            {
+                MasterDS.Add(x);    
+            }
+
         }
 
         public bool SignUp(string name, string email, string username, string password)
@@ -32,6 +39,8 @@ namespace QuizManagementSystem
             };
 
             MasterDS.Add(newUser);
+            masterMongo.AddMaster(newUser);
+
             return true;
         }
 

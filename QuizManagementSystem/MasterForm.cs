@@ -16,11 +16,13 @@ namespace QuizManagementSystem
         QuizManager quizManager = new QuizManager();
         Master userDetails = new Master();
         PlayerLogin playerLogin = new PlayerLogin();
+        MasterLogin masterLogin = new MasterLogin();
         bool isLeadboardDisplay = false;
-        public MasterForm(Master userD)
+
+        public MasterForm(string username)
         {
             InitializeComponent();
-            userDetails = userD;
+            userDetails = masterLogin.GetUser(username);
         }
 
         private void MasterForm_Load(object sender, EventArgs e)
