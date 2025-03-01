@@ -2,7 +2,7 @@
 using MongoDB.Driver;
 using System.Collections.Generic;
 
-namespace QuizManagementSystem
+namespace QuizManagementSystem.MongoFiles
 {
     public class MasterMongo
     {
