@@ -304,5 +304,12 @@ namespace QuizManagementSystem
         {
 
         }
+
+        private void toggleSort_Click(object sender, EventArgs e)
+        {
+            //
+        }
+
+        
     }
 }

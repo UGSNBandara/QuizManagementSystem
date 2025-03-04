@@ -16,11 +16,13 @@ namespace QuizManagementSystem
 {
     public class PlayerLogin
     {
-        private PlayeBinaryPlusLinkedList PlayerDS;
+        //private PlayeBinaryPlusLinkedList PlayerDS;
+        private PlayerAVLTPlusLinkedList PlayerDS;
         PlayerMongo plMongo = new PlayerMongo();
         public PlayerLogin()
         {
-            PlayerDS = new PlayeBinaryPlusLinkedList();
+            //PlayerDS = new PlayeBinaryPlusLinkedList();
+            PlayerDS = new PlayerAVLTPlusLinkedList();
             PlayerMongo plMongo = new PlayerMongo();
             
             List<Player> players = new List<Player>();
@@ -96,6 +98,7 @@ namespace QuizManagementSystem
         {
             return PlayerDS.ReturnPlayersInOder();
         }
+
     }
 
     public class Player
