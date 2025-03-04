@@ -187,11 +187,13 @@ namespace QuizManagementSystem.Data_Structures
         {
             while (node.Left != null) node = node.Left;
             return node;
-        }
+        } 
 
         public IEnumerable<Player> ReturnPlayersInOder()
         {
-            Sort();
+            //Sort();
+            //InSort();
+            MSort();
             Node current = head;
             while (current != null)
             {
@@ -248,5 +250,137 @@ namespace QuizManagementSystem.Data_Structures
             } while (swapped);
         }
 
+        //Insertion sort
+        public void InSort()
+        {
+            if (head == null || head.Next == null)
+            {
+                return;
+            }
+
+            Node sorted = null;
+            Node current = head;
+
+            while (current != null)
+            {
+                Node next = current.Next;
+
+
+                if (sorted == null || sorted.Player.Score <= current.Player.Score)
+                {
+
+                    current.Next = sorted;
+                    if (sorted != null)
+                    {
+                        sorted.Prev = current;
+                    }
+                    sorted = current;
+                    sorted.Prev = null;
+                }
+                else
+                {
+
+                    Node temp = sorted;
+                    while (temp.Next != null && temp.Next.Player.Score > current.Player.Score)
+                    {
+                        temp = temp.Next;
+                    }
+
+
+                    current.Next = temp.Next;
+                    if (temp.Next != null)
+                    {
+                        temp.Next.Prev = current;
+                    }
+                    temp.Next = current;
+                    current.Prev = temp;
+                }
+
+                current = next;
+            }
+
+            head = sorted;
+        }
+
+        public void MSort()
+        {
+            if (head == null || head.Next == null)
+            {
+                return;
+            }
+            head = MergeSort(head);
+        }
+
+        private Node MergeSort(Node head)
+        {
+            if (head == null || head.Next == null)
+            {
+                return head;
+            }
+
+            Node middle = GetMiddle(head);
+            Node nextToMiddle = middle.Next;
+            middle.Next = null;
+            if (nextToMiddle != null)
+            {
+                nextToMiddle.Prev = null;
+            }
+
+            Node left = MergeSort(head);
+            Node right = MergeSort(nextToMiddle);
+
+            return Merge(left, right);
+        }
+
+        private Node GetMiddle(Node head)
+        {
+            if (head == null)
+            {
+                return head;
+            }
+
+            Node slow = head, fast = head;
+            while (fast.Next != null && fast.Next.Next != null)
+            {
+                slow = slow.Next;
+                fast = fast.Next.Next;
+            }
+            return slow;
+        }
+
+        private Node Merge(Node left, Node right)
+        {
+            if (left == null)
+            {
+                return right;
+            }
+            if (right == null)
+            {
+                return left;
+            }
+
+            Node result;
+            if (left.Player.Score > right.Player.Score)
+            {
+                result = left;
+                result.Next = Merge(left.Next, right);
+                if (result.Next != null)
+                {
+                    result.Next.Prev = result;
+                }
+            }
+            else
+            {
+                result = right;
+                result.Next = Merge(left, right.Next);
+                if (result.Next != null)
+                {
+                    result.Next.Prev = result;
+                }
+            }
+
+            result.Prev = null;
+            return result;
+        }
     }
 }

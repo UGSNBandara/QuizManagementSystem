@@ -674,9 +674,10 @@ namespace QuizManagementSystem
             label7.ForeColor = SystemColors.Window;
             label7.Location = new Point(54, 81);
             label7.Name = "label7";
-            label7.Size = new Size(399, 63);
+            label7.Size = new Size(383, 63);
             label7.TabIndex = 11;
-            label7.Text = "Wellcome Back";
+            label7.Text = "Welcome Back";
+            label7.Click += label7_Click;
             // 
             // sf
             // 

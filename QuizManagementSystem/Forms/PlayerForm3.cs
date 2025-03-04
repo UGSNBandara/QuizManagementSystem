@@ -36,7 +36,7 @@ namespace QuizManagementSystem
             QuizID.Visible = false;
             QuestionPanel.Visible = false;
             updateProfileData();
-            
+
         }
 
 
@@ -145,7 +145,7 @@ namespace QuizManagementSystem
             {
                 playerScore = playerScore * totalScoreOfCurrentQuiz / playerQuestions.Count;
                 ShowResult();
-                playerLogin.UpdateScore(userDetails.Username, playerScore+userDetails.Score);
+                playerLogin.UpdateScore(userDetails.Username, playerScore + userDetails.Score);
                 updateProfileData();
                 return;
             }
@@ -296,6 +296,11 @@ namespace QuizManagementSystem
         }
 
         private void PlayerForm3_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void QuizShowPanel_Paint(object sender, PaintEventArgs e)
         {
 
         }
